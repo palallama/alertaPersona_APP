@@ -1,0 +1,7 @@
+{
+  "name": "AlertaPersona_APP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
