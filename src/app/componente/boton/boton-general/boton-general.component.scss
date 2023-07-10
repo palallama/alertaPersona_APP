@@ -1,0 +1,21 @@
+
+.boton {
+    background-color: #4095D4;
+    width: 330px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.boton:hover {
+    background-color: #04CAA3;
+}
+.boton:disabled {
+    background-color: #8D8D8D;
+}
+
+.texto {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}

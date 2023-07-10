@@ -1,0 +1,79 @@
+<ion-content [fullscreen]="true">
+
+  <div class="container">
+
+    <div class="c-flex">
+      <ion-img class="imagenLogo" src="./assets/Logo.svg" alt="Alerta Persona logo"></ion-img>
+    </div>
+
+    <p class="title" >Registro</p>
+
+    <form [formGroup]="usuarioNuevo">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <app-text-input formControlName="nombre" placeholder="Nombre" label="Nombre" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+          <ion-col size="6">
+            <app-text-input formControlName="apellido" placeholder="Apellido" label="Apellido" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="6">
+            <app-text-input formControlName="dni" inputType="number" placeholder="DNI" label="Nro Documento" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+          <ion-col size="6">
+            <app-text-input formControlName="nroTramite" inputType="number" placeholder="Nro Tramite" label="Nro Tramite" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="6">
+            <app-text-input formControlName="genero" placeholder="Genero" label="Genero" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+          <ion-col size="6">
+            <app-text-input formControlName="fchNacimiento" inputType="date" placeholder="" label="Fecha nacimiento" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <app-text-input formControlName="telefono" inputType="tel" placeholder="Telefono" label="Telefono" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="10" offset="1">
+            <app-text-input formControlName="mail" inputType="mail" placeholder="mail@mail.com" label="Mail" [required]="true" style="width: 100%;"></app-text-input>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <app-password-input formControlName="password" placeholder="Contraseña" label="Contraseña" [required]="true" style="width: 100%; margin: 4px 0;"></app-password-input>
+          </ion-col>
+          <ion-col size="6">
+            <app-password-input formControlName="passwordRepetida" placeholder="Repetir Contraseña" label="Repetir" [required]="true" style="width: 100%; margin: 4px 0;"></app-password-input>
+          </ion-col>
+        </ion-row>
+        
+        <!-- <ion-row>
+          <ion-col size="10" offset="1">
+            <app-password-input formControlName="password" placeholder="Contraseña" label="Contraseña" [required]="true" style="width: 100%; margin: 4px 0;"></app-password-input>
+            <app-password-input placeholder="Repetir Contraseña" [mostarLabel]="false" [required]="true" style="width: 100%; margin: 4px 0;"></app-password-input>
+          </ion-col>
+        </ion-row> -->
+
+      </ion-grid>
+    </form>
+    
+    <!-- <app-text-input [(ngModel)]="mail" placeholder="Nombre" icono="send" placeholder="mail@mail.com" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-text-input>
+    <app-password-input [(ngModel)]="pass" placeholder="password" icono="lock-closed" placeholder="contraseña" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-password-input> -->
+
+    <app-boton-general (botonClick)="registro()" label="Registrarse" style="width: 100%; margin-top: 16px;" ></app-boton-general>
+
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,24 @@
+<div class="contenedor">
+  <label *ngIf="mostarLabel" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span></label>
+  
+  <div class="input">
+    <div *ngIf="icono!==''" class="icon-izq">
+      <ion-icon class="icon" name="{{icono}}"></ion-icon>
+    </div>
+    <input #input
+        [value]="defaultValue"
+  
+        [type]="inputType"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [readOnly]="readOnly"
+        [required]="required"
+  
+        [style]="style"
+  
+        (input)="onInput($event.target)"
+        (blur)="onTouched($event)"
+        (focus)="onFocus()"
+    />
+  </div>
+</div>
