@@ -12,11 +12,11 @@
       <app-text-input formControlName="mail" placeholder="Nombre" icono="send" placeholder="mail@mail.com" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-text-input>
       <app-password-input formControlName="password" placeholder="password" icono="lock-closed" placeholder="contraseña" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-password-input>
   
-      <app-boton-general label="Iniciar Sesion" style="width: 100%; margin: 64px 0;" ></app-boton-general>
+      <app-boton-general (botonClick)="enter()" [ngClass]="'danger'" label="Iniciar Sesion" style="width: 100%; margin: 64px 0;" ></app-boton-general>
     </form>
 
     <a>Olvide mi contraseña</a>
-    <p>Sos nuevo? <a >Registrate</a></p>
+    <p>Sos nuevo? <a routerLink="/registro">Registrate</a></p>
 
   </div>
 

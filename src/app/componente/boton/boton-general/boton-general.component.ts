@@ -9,6 +9,7 @@ export class BotonGeneralComponent {
   @Input() label!: string;
   @Input() disabled: boolean = false;
   @Input() style: string = "";
+  @Input() class: string = "";
   @Output() botonClick: EventEmitter<void> = new EventEmitter<void>();
 
   onClick() {

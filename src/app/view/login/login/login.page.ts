@@ -18,12 +18,14 @@ export class LoginPage {
   });
 
   enter(){
-    console.log(this.usuario.value.mail);
-    console.log(this.usuario.value.password);
 
-    // if (this.usuarioService.iniciarSesion(this.usuario.value.mail, this.usuario.value.password)) {
-    //   this.router.navigateByUrl("/");
-    // }
+    if (this.usuario.valid){
+      console.log(this.usuario.value.mail);
+      console.log(this.usuario.value.password);
+      if (this.usuarioService.iniciarSesion(this.usuario.value.mail! , this.usuario.value.password! )) {
+        this.router.navigateByUrl("/");
+      }
+    }
   }
 
 

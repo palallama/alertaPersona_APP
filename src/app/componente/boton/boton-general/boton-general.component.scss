@@ -1,16 +1,16 @@
 
 .boton {
-    background-color: #4095D4;
+    background-color: var(--ion-color-primary);
     width: 330px;
     height: 50px;
     border-radius: 10px;
 }
 
 .boton:hover {
-    background-color: #04CAA3;
+    background-color: var(--ion-color-tertiary) !important;
 }
 .boton:disabled {
-    background-color: #8D8D8D;
+    background-color: #8D8D8D !important;
 }
 
 .texto {
@@ -18,4 +18,15 @@
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
+}
+
+.boton.danger {
+    background-color: var(--ion-color-danger);
+}
+.boton.warning {
+    background-color: var(--ion-color-warning);
+    color: black;
+}
+.boton.success {
+    background-color: var(--ion-color-success);
 }

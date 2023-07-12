@@ -26,6 +26,8 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
   @Input() required: boolean = false;
   @Input() label: string = "Label";
   @Input() mostarLabel: boolean = true;
+  @Input() aclaracion: string = "";
+  @Input() mostrarAclaracion: boolean = false;
 
   @Input() style: string = "";
   @Input() icono: string = "";
