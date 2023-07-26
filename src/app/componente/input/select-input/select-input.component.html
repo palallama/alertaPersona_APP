@@ -1,0 +1,43 @@
+<div class="contenedor">
+  <label *ngIf="mostarLabel" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span><span class="aclaracion" *ngIf="mostrarAclaracion">{{aclaracion}}</span></label>
+  
+  <div class="input">
+    <div *ngIf="icono!==''" class="icon-izq">
+      <ion-icon class="icon" name="{{icono}}"></ion-icon>
+    </div>
+    <select #input
+
+
+      [disabled]="disabled"
+      [required]="required"
+
+      [style]="style"
+
+      >
+
+      <option disabled selected>{{placeholder}}</option>
+      <option [value]="item" *ngFor="let item of valores">{{item}}</option>
+
+      <!-- <option value="value1">Value 1</option>
+      <option value="value2" selected>Value 2</option>
+      <option value="value3">Value 3</option> -->
+    </select>
+  </div>
+</div>
+
+<!-- 
+<input #input
+[value]="defaultValue"
+
+[type]="inputType"
+[placeholder]="placeholder"
+[disabled]="disabled"
+[readOnly]="readOnly"
+[required]="required"
+
+[style]="style"
+
+(input)="onInput($event.target)"
+(blur)="onTouched($event)"
+(focus)="onFocus()"
+/> -->

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { usuario } from 'src/app/interfaz/usuario';
+import { Usuario } from 'src/app/interfaz/usuario';
 
 @Component({
   selector: 'app-registro',
@@ -9,7 +9,9 @@ import { usuario } from 'src/app/interfaz/usuario';
 })
 export class RegistroPage {
 
-  usuario!: usuario;
+  usuario!: Usuario;
+
+  test!: string;
 
   usuarioNuevo = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
@@ -22,6 +24,7 @@ export class RegistroPage {
     mail: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     passwordRepetida: new FormControl('', [Validators.required]),
+    test: new FormControl('')
   });
 
   registro() {

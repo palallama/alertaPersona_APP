@@ -6,6 +6,7 @@ import { BotonGeneralComponent } from './boton/boton-general/boton-general.compo
 import { FooterComponent } from './ui/footer/footer.component';
 import { TextInputComponent } from './input/text-input/text-input.component';
 import { PasswordInputComponent } from './input/password-input/password-input.component';
+import { SelectInputComponent } from './input/select-input/select-input.component';
 
 
 
@@ -21,12 +22,14 @@ import { PasswordInputComponent } from './input/password-input/password-input.co
     BotonGeneralComponent,
     TextInputComponent,
     PasswordInputComponent,
+    SelectInputComponent,
   ],
   exports: [
     FooterComponent,
     BotonGeneralComponent,
     TextInputComponent,
     PasswordInputComponent,
+    SelectInputComponent,
   ]
 })
 export class ComponenteModule { }

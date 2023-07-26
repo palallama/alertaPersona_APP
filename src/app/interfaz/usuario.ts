@@ -1,9 +1,9 @@
-export interface usuario {
+export interface Usuario {
     id: string;
     nombre: string;
     apellido: string;
-    dni: string;
-    nroTramite: string;
+    dni: number;
+    nroTramite: number;
     genero: string;
     fchNacimiento: Date;
     telefono: string;

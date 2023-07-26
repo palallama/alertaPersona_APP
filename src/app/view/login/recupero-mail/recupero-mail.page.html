@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true">
+
+  <div class="container">
+
+    <div class="c-flex">
+      <ion-img class="imagenLogo" src="./assets/Logo/Logo.svg" alt="Alerta Persona logo"></ion-img>
+    </div>
+
+    <p class="title" >Olvide mi contraseña</p>
+
+    <app-text-input [formControl]="mail" icono="send" placeholder="mail@mail.com" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-text-input>
+    <app-boton-general (botonClick)="enter()" label="Enviar" style="width: 100%; margin: 34px 0;" ></app-boton-general>
+
+  </div>
+
+</ion-content>

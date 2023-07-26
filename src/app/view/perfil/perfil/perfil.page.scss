@@ -1,0 +1,61 @@
+
+.headerTitle{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 68%;
+    // padding-bottom: 90%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
+
+ion-content::part(scroll) {
+    padding-bottom: 0;
+}
+
+.imagenLogo{
+    margin: 35px 0;
+    width: 225px;
+    height: 225px;
+}
+
+.container {
+    margin: 0 16px;
+    height: 100vh;
+}
+
+.c-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataUsuario{
+    display: flex;
+}
+
+.dataUsuario table{
+    margin: auto;
+}
+
+.tituloTable{
+    font-weight: bold;
+}
+
+.attTable {
+    padding-left: 10px;
+}
+
+.tituloTable,
+.attTable {
+    font-size: 20px;
+}

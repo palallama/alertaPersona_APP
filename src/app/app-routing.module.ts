@@ -18,7 +18,19 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./view/login/registro/registro.module').then( m => m.RegistroPageModule)
+  },  {
+    path: 'recupero-mail',
+    loadChildren: () => import('./view/login/recupero-mail/recupero-mail.module').then( m => m.RecuperoMailPageModule)
   },
+  {
+    path: 'recupero-password',
+    loadChildren: () => import('./view/login/recupero-password/recupero-password.module').then( m => m.RecuperoPasswordPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./view/perfil/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+
 
 ];
 

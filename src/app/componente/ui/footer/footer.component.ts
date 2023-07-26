@@ -62,7 +62,7 @@ export class FooterComponent implements AfterViewInit {
   emitirAlerta() {
     console.log("**** ALERTA EMITIDA ****");
     this.zone.run(() => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     });
   }
 
