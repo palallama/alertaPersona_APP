@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true">
+  <google-map
+    height="100%"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options"
+  >
+    <map-marker
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [title]="marker.title"
+    >
+    </map-marker>
+    <map-directions-renderer 
+      *ngIf="(directionsResults$ | async) as directionsResults"
+      [directions]="directionsResults"
+    >
+    </map-directions-renderer>
+    <map-circle 
+      [center]="circleCenter"
+      [radius]="radius"
+    >
+    </map-circle>
+  </google-map>
+</ion-content>
