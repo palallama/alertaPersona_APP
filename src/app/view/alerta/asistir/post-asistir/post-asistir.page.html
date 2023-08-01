@@ -1,26 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="headerTitle">Alerta Persona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
-  <google-map
-    height="100%"
-    width="100%"
-    [zoom]="zoom"
-    [center]="center"
-    [options]="options"
-  >
-    <map-marker
-      *ngFor="let marker of markers"
-      [position]="marker.position"
-      [title]="marker.title"
-    >
-    </map-marker>
-    <map-directions-renderer 
-      *ngIf="(directionsResults$ | async) as directionsResults"
-      [directions]="directionsResults"
-    >
-    </map-directions-renderer>
-    <map-circle 
-      [center]="circleCenter"
-      [radius]="radius"
-    >
-    </map-circle>
-  </google-map>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-mapa
+        class="mapa"
+        [calculaRuta]="true"
+        [ruta]="ruta"
+        >
+        </app-mapa>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        
+        <app-boton-general label="Resuelto"></app-boton-general>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>

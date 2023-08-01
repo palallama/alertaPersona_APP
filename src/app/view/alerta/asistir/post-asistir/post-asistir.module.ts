@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { PostAsistirPageRoutingModule } from './post-asistir-routing.module';
 import { PostAsistirPage } from './post-asistir.page';
-import { GoogleMapsModule } from '@angular/google-maps'
+import { ComponenteModule } from 'src/app/componente/componente.module';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     FormsModule,
     IonicModule,
     PostAsistirPageRoutingModule,
-    GoogleMapsModule,
+    ComponenteModule,
   ],
   declarations: [PostAsistirPage]
 })

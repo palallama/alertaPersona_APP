@@ -1,0 +1,26 @@
+<google-map
+  height="100%"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+>
+  <map-marker
+    *ngFor="let marcador of marcadores"
+    [position]="marcador.position"
+    [title]="marcador.title"
+  >
+  </map-marker>
+  <map-directions-renderer 
+    *ngIf="calculaRuta"
+    [directions]="directionsResults"
+  >
+  </map-directions-renderer>
+  <map-circle 
+    *ngIf="calculaRuta"
+    [center]="circleCenter"
+    [radius]="radius"
+    [options]="optionsCirculo"
+  >
+  </map-circle>
+</google-map>
