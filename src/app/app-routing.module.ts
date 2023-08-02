@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'post-asistir',
     loadChildren: () => import('./view/alerta/asistir/post-asistir/post-asistir.module').then( m => m.PostAsistirPageModule)
   },
+  {
+    path: 'post-emitir',
+    loadChildren: () => import('./view/alerta/emitir/post-emitir/post-emitir.module').then( m => m.PostEmitirPageModule)
+  },
 
 
 ];

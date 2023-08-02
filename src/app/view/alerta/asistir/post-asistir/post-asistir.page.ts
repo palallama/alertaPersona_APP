@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Ruta } from 'src/app/interfaz/ruta';
 
 @Component({
@@ -7,16 +8,21 @@ import { Ruta } from 'src/app/interfaz/ruta';
     styleUrls: ['./post-asistir.page.scss'],
 })
 export class PostAsistirPage {
+    private router = inject(Router);
 
     ruta: Ruta = {
         origen: {
-            lat: -34.41568791269847,
-            lng: -58.72478483924493
+            lat: -34.6044089734555,
+            lng: -58.39605072988798
         },
         destino: {
-            lat: -34.418052321592924, 
-            lng: -58.725404960797704
+            lat: -34.60089567266922,
+            lng: -58.38352310888356
         }
+    }
+
+    resuelto(){
+        this.router.navigateByUrl('/home')
     }
 
 }

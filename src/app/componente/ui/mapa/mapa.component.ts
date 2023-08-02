@@ -300,7 +300,7 @@ export class MapaComponent  implements OnInit {
                           }
                       ]
                   }
-              ]
+              ] 
 
   private mapDirectionsService = inject(MapDirectionsService);
 
@@ -359,8 +359,7 @@ export class MapaComponent  implements OnInit {
   };
 
   ngOnInit() {
-    console.log(this.calculaRuta);
-    console.log(this.ruta);
+    console.log(this.marcadores);
     
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {

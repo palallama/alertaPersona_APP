@@ -3,5 +3,6 @@ export interface Marcador {
         lat: number,
         lng: number
     },
-    title: string
+    title: string,
+    icon?: string
 }
