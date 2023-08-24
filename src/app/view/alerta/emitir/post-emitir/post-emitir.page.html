@@ -10,8 +10,10 @@
     <ion-row>
       <ion-col>
         <app-mapa
+        *ngIf="mostrarMapa"
         class="mapa"
         [marcadores]="marcadores"
+        [centro]="center"
         >
         </app-mapa>
       </ion-col>

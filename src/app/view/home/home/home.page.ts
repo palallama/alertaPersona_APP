@@ -12,9 +12,5 @@ export class HomePage {
   click(){
     console.log("click")
   }
-  
-  asistir(){
-    this.router.navigateByUrl('/post-asistir');
-  }
 
 }

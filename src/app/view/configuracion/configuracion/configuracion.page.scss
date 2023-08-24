@@ -1,0 +1,36 @@
+
+.headerTitle{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 68%;
+    // padding-bottom: 90%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
+
+ion-checkbox {
+    --size: 32px;
+    --checkbox-background-checked: #4095d4;
+}
+
+ion-checkbox::part(container) {
+    border-radius: 6px;
+    border: 2px solid #4095d4;
+}
+
+.check_block{
+    font-size: larger;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}

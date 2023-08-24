@@ -10,6 +10,7 @@
     <ion-row>
       <ion-col>
         <app-mapa
+        *ngIf="mostrarMapa"
         class="mapa"
         [calculaRuta]="true"
         [ruta]="ruta"
@@ -20,7 +21,7 @@
     <ion-row>
       <ion-col>
         
-        <app-boton-general (botonClick)="resuelto()" label="Resuelto" style="width: 100%; margin-top: 16px;"></app-boton-general>
+        <app-boton-general routerLink="/home" label="Resuelto" style="width: 100%; margin-top: 16px;"></app-boton-general>
 
       </ion-col>
     </ion-row>

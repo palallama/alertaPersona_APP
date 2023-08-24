@@ -1,8 +1,10 @@
 export interface Marcador {
-    position: {
-        lat: number,
-        lng: number
-    },
+    position: Ubicacion
     title: string,
     icon?: string
+}
+
+export interface Ubicacion {
+    lat: number,
+    lng: number
 }

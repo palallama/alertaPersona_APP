@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'post-emitir',
     loadChildren: () => import('./view/alerta/emitir/post-emitir/post-emitir.module').then( m => m.PostEmitirPageModule)
   },
+  {
+    path: 'configuracion',
+    loadChildren: () => import('./view/configuracion/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
 
 
 ];
