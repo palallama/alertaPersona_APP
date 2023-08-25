@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'configuracion',
     loadChildren: () => import('./view/configuracion/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
+  {
+    path: 'historial',
+    loadChildren: () => import('./view/perfil/historial/historial.module').then( m => m.HistorialPageModule)
+  },
 
 
 ];

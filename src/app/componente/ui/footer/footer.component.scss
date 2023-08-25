@@ -2,7 +2,8 @@
 
 .footer {
     padding-top: 16px;
-    background-color: transparent;
+    // background-color: transparent;
+    background-color: #fff;
     // position: absolute;
     // bottom: 0;
     display: flex;
@@ -10,7 +11,7 @@
     align-items: center;
     width: 100%;
     /* margin: 50px 0 65px 0; */
-    height: 34%;
+    // height: 34%;
 
     background-image: url("/assets/footer/ola.svg");
     background-repeat: no-repeat;
