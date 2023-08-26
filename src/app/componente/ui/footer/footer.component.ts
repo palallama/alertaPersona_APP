@@ -14,7 +14,7 @@ export class FooterComponent implements AfterViewInit {
   private router = inject(Router);
   private zone = inject(NgZone);
 
-  deltaMin: number = 400;
+  deltaMin: number = 250;
 
   ngAfterViewInit() {
 
@@ -62,7 +62,7 @@ export class FooterComponent implements AfterViewInit {
   emitirAlerta() {
     console.log("**** ALERTA EMITIDA ****");
     this.zone.run(() => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/post-emitir']);
     });
   }
 

@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-content >
 
   <div class="container">
 
@@ -40,10 +40,6 @@
         <ion-row>
           <ion-col size="6">
             <app-text-input formControlName="telefono" inputType="tel" placeholder="Telefono" label="Telefono" [required]="true" style="width: 100%;"></app-text-input>
-          </ion-col>
-          <ion-col size="6">
-            <app-select-input formControlName="test" [valores]="['junio', 'julio', 'agosto']" placeholder="Genero" label="Genero" [required]="true" style="width: 100%;"></app-select-input>
-            <p>{{test}}</p>
           </ion-col>
         </ion-row>
 

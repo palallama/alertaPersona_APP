@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +7,7 @@ import { Component, OnInit, inject } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  private router = inject(Router);
 
   click(){
     console.log("click")

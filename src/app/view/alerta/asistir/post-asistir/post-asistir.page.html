@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="headerTitle">Alerta Persona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-mapa
+        *ngIf="mostrarMapa"
+        class="mapa"
+        [calculaRuta]="true"
+        [ruta]="ruta"
+        >
+        </app-mapa>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        
+        <app-boton-general routerLink="/home" label="Resuelto" style="width: 100%; margin-top: 16px;"></app-boton-general>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

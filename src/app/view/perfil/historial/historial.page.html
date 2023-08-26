@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="headerTitle">Historial de Alertas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <div>
+    <div class="seccion">
+      <h2>Emitidas</h2>
+    </div>
+    <div *ngFor="let alerta of alertasEmitidas">
+      <app-item-historial [alerta]="alerta"></app-item-historial>
+    </div>
+  </div>
+  <div>
+    <div class="seccion">
+      <h2>Asistidas</h2>
+    </div>
+    <div *ngFor="let alerta of alertasAsistidas">
+      <app-item-historial [alerta]="alerta"></app-item-historial>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer">
+  <app-footer></app-footer>
+</ion-footer>

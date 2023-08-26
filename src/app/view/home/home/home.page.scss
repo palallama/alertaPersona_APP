@@ -8,15 +8,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 68%;
+    height: 100%;
     // padding-bottom: 90%;
 }
 
 .footer {
     position: absolute;
     bottom: 0;
-}
-
-ion-content::part(scroll) {
-    padding-bottom: 0;
 }

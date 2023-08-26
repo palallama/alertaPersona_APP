@@ -30,6 +30,22 @@ const routes: Routes = [
     path: 'perfil',
     loadChildren: () => import('./view/perfil/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
+  {
+    path: 'post-asistir',
+    loadChildren: () => import('./view/alerta/asistir/post-asistir/post-asistir.module').then( m => m.PostAsistirPageModule)
+  },
+  {
+    path: 'post-emitir',
+    loadChildren: () => import('./view/alerta/emitir/post-emitir/post-emitir.module').then( m => m.PostEmitirPageModule)
+  },
+  {
+    path: 'configuracion',
+    loadChildren: () => import('./view/configuracion/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./view/perfil/historial/historial.module').then( m => m.HistorialPageModule)
+  },
 
 
 ];

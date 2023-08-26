@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="headerTitle">Alerta Persona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="main">
+
+    <div style="margin: 0 16px;">
+      <div class="check_block">
+        <ion-checkbox>Activar Notificaciones</ion-checkbox>
+      </div>
+      <app-boton-general label="Cambiar Clave" style="width: 100%; margin: 8px 0;" ></app-boton-general>
+      <app-boton-general routerLink="/login" label="Cerrar Sesion" style="width: 100%; margin: 8px 0;" ></app-boton-general>
+    </div>
+
+  </div>
+
+  
+</ion-content>
+
+<ion-footer class="">
+  <app-footer></app-footer>
+</ion-footer>
