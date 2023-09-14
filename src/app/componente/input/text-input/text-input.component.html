@@ -2,6 +2,7 @@
   <label *ngIf="mostarLabel" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span><span class="aclaracion" *ngIf="mostrarAclaracion">{{aclaracion}}</span></label>
   
   <div class="input">
+
     <div
       [style]="style"
     >
@@ -10,11 +11,11 @@
       </div>
       <input #input
         [value]="defaultValue"
-  
         [type]="inputType"
+
         [placeholder]="placeholder"
-        [disabled]="disabled"
         [readOnly]="readOnly"
+        [disabled]="disabled"
         [required]="required"
   
         style="width: 100%;"
@@ -27,5 +28,5 @@
         />
     </div>
   </div>
-  <p *ngIf="error" class="errorTxt">{{errorTxt}}</p>
+  <p class="errorTxt">{{ (error) ? errorTxt : ''}}</p>
 </div>

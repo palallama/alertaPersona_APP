@@ -13,8 +13,19 @@
       <p style="margin-top: 0;">Si corresponde al de un usuario registrado le enviaremos el link de restablecimiento</p>
     </div>
 
-    <app-text-input [formControl]="mail" icono="send" placeholder="mail@mail.com" [mostarLabel]="false" style="width: 100%; margin: 8px 0;"></app-text-input>
-    <app-boton-general (botonClick)="enter()" label="Enviar" style="width: 100%; margin: 34px 0;" ></app-boton-general>
+    <app-text-input 
+      [formControl]="mail"
+      icono="send" 
+      placeholder="mail@mail.com"
+      [mostarLabel]="false"
+      style="width: 100%; margin: 8px 0;"
+      [error]="(!mail.valid) && mail.touched"
+    >
+    </app-text-input>
+    <app-boton-general (botonClick)="enter()" label="Enviar" style="width: 100%; margin: 34px 0 0 0;" ></app-boton-general>
+    <div class="volver">
+      <a routerLink="/login">Iniciar Sesion</a>
+    </div>
 
   </div>
 

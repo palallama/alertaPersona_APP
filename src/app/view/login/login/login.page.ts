@@ -13,11 +13,15 @@ export class LoginPage {
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
   usuario = new FormGroup({
-    mail: new FormControl('', [Validators.required, Validators.email]),
+    mail: new FormControl('', [Validators.required, Validators.email, Validators.minLength(10)]),
     password: new FormControl('', [Validators.required])
   });
 
   enter(){
+
+    console.log(this.usuario.get('mail')?.touched )
+    console.log(this.usuario.get('mail')?.valid )
+    console.log(this.usuario.get('mail')?.errors )
 
     if (this.usuario.valid){
       console.log(this.usuario.value.mail);
