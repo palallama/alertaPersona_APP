@@ -1,4 +1,5 @@
 import { AlertaEstado } from "./alerta-estado";
+import { Ubicacion } from "./marcador";
 
 export interface Alerta {
 
@@ -6,5 +7,5 @@ export interface Alerta {
     usuario: string,
     fecha: Date,
     estado: AlertaEstado
-
+    ubicacion?: Ubicacion
 }

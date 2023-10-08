@@ -18,7 +18,8 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./view/login/registro/registro.module').then( m => m.RegistroPageModule)
-  },  {
+  },
+  {
     path: 'recupero-mail',
     loadChildren: () => import('./view/login/recupero-mail/recupero-mail.module').then( m => m.RecuperoMailPageModule)
   },
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./view/perfil/historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  {
+    path: 'asistir/:alerta',
+    loadChildren: () => import('./view/alerta/asistir/asistir/asistir.module').then( m => m.AsistirPageModule)
   },
 
 
