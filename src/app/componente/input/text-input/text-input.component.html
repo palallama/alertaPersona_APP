@@ -2,23 +2,31 @@
   <label *ngIf="mostarLabel" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span><span class="aclaracion" *ngIf="mostrarAclaracion">{{aclaracion}}</span></label>
   
   <div class="input">
-    <div *ngIf="icono!==''" class="icon-izq">
-      <ion-icon class="icon" name="{{icono}}"></ion-icon>
-    </div>
-    <input #input
+
+    <div
+      [style]="style"
+    >
+      <div *ngIf="icono!==''" class="icon-izq">
+        <ion-icon class="icon" name="{{icono}}"></ion-icon>
+      </div>
+      <input #input
         [value]="defaultValue"
-  
         [type]="inputType"
+
         [placeholder]="placeholder"
-        [disabled]="disabled"
         [readOnly]="readOnly"
+        [disabled]="disabled"
         [required]="required"
   
-        [style]="style"
+        style="width: 100%;"
+  
+        [ngClass]="{'error': error}"
   
         (input)="onInput($event.target)"
         (blur)="onTouched($event)"
         (focus)="onFocus()"
-    />
+        />
+    </div>
   </div>
+  <p class="errorTxt">{{ (error) ? errorTxt : ''}}</p>
 </div>

@@ -16,18 +16,22 @@ export class RegistroPage {
   usuarioNuevo = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     apellido: new FormControl('', [Validators.required]),
-    dni: new FormControl(0, [Validators.required]),
-    nroTramite: new FormControl(0, [Validators.required]),
+    dni: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+    nroTramite: new FormControl(null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
     genero: new FormControl('', [Validators.required]),
     fchNacimiento: new FormControl(null, [Validators.required]),
     telefono: new FormControl('', [Validators.required]),
     mail: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     passwordRepetida: new FormControl('', [Validators.required]),
-    test: new FormControl('')
   });
 
   registro() {
+
+    console.log(this.usuarioNuevo.get('nombre')?.errors);
+
+    console.log(this.usuarioNuevo.get('dni')?.errors);
+
 
     // console.log(this.usuarioNuevo);
     if (this.usuarioNuevo.valid && (this.usuarioNuevo.value.password === this.usuarioNuevo.value.passwordRepetida)){

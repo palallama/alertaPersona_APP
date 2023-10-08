@@ -32,6 +32,9 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
   @Input() style: string = "";
   @Input() icono: string = "";
 
+  @Input() error: boolean = false;
+  @Input() errorTxt: string = "Campo invalido";
+
   value: string = '';
 
   @Input() defaultValue: string = "";

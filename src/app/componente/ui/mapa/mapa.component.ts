@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Marcador } from 'src/app/interfaz/marcador';
+import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
 import { MapDirectionsService } from '@angular/google-maps';
 import { map, Observable } from 'rxjs';
 import { Ruta } from 'src/app/interfaz/ruta';
@@ -304,7 +304,12 @@ export class MapaComponent implements OnInit {
 
     private mapDirectionsService = inject(MapDirectionsService);
 
+    @Input() acciones: boolean = true;
+
     @Input() centro: google.maps.LatLngLiteral = { lat: 0, lng: 0};
+
+    @Input() circleCenter: google.maps.LatLngLiteral = { lat: 0, lng: 0};
+    @Input() dibujaCirculo: boolean = false;
 
     @Input() calculaRuta: boolean = false;
     @Input() ruta!: Ruta;
@@ -334,7 +339,7 @@ export class MapaComponent implements OnInit {
 
 
     //! CICULO
-    circleCenter!: google.maps.LatLngLiteral;
+    // circleCenter!: google.maps.LatLngLiteral;
     radius = 80;
     optionsCirculo = {
         strokeColor: "#04CAA3",
@@ -351,27 +356,21 @@ export class MapaComponent implements OnInit {
     //! MAPA
     zoom = 16;
     // center!: google.maps.LatLngLiteral;
+
     options: google.maps.MapOptions = {
         scrollwheel: true,
         zoomControl: false,
         disableDoubleClickZoom: true,
         disableDefaultUI: true,
         fullscreenControl: false,
-        styles: this.styleMap
+        styles: this.styleMap,
+        gestureHandling: "auto",
     };
 
     ngOnInit() {
-        // console.log(this.marcadores);
-
-        // navigator.geolocation.getCurrentPosition((position) => {
-        //     this.center = {
-        //         lat: position.coords.latitude,
-        //         lng: position.coords.longitude,
-        //     };
-        //     console.log(this.center);
-        // });
-
-
+        if (!this.acciones){
+            this.options.gestureHandling = "none";
+        }
         if (this.calculaRuta) {
             this.calcularRuta();
         }
@@ -394,6 +393,7 @@ export class MapaComponent implements OnInit {
             },
             complete: () => {
                 this.circleCenter = this.ruta.destino;
+                this.dibujaCirculo = true;
             }
         });
     }

@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="headerTitle">Alerta Persona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="contenedor">
+
+    <h2 class="titulo">Nueva Alerta</h2>
+
+    <div class="leyenda">
+      <p >Se emitio una nueva alerta a</p>
+      <p><span>{{distancia | number: '1.0-0'}}</span> metros</p>
+      <p>de tu ubicacion</p>
+    </div>
+
+    <app-mapa
+      *ngIf="mostrarMapa"
+      class="mapa"
+      [centro]="alerta.ubicacion!"
+      [dibujaCirculo]="true"
+      [circleCenter]="alerta.ubicacion!"
+      [acciones]="false"
+      >
+    </app-mapa>
+
+    <app-boton-general routerLink="/post-asistir" label="Asistir" style="margin: 30px 0 20px 0;"></app-boton-general>
+    <a routerLink="/home" >OMITIR</a>
+  </div>
+
+  
+</ion-content>

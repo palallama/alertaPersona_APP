@@ -53,7 +53,7 @@ export class PostEmitirPage implements OnInit{
     this.center.lat = ubicacion.latitude;
     this.emisor.position = this.center;
     this.mostrarMapa = true;
-}
+  }
 
   resuelto(){
     this.router.navigateByUrl('/home')

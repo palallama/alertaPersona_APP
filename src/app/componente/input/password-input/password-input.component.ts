@@ -29,6 +29,9 @@ export class PasswordInputComponent implements ControlValueAccessor, AfterViewIn
   @Input() style: string = "";
   @Input() icono: string = "";
 
+  @Input() error: boolean = false;
+  @Input() errorTxt: string = "Campo invalido";
+
   value: string = '';
   showPassword: boolean = false; // Variable para controlar la visualización de la contraseña
 
