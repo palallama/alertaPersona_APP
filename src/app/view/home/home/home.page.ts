@@ -9,6 +9,11 @@ import { Router } from '@angular/router';
 export class HomePage{
   private router = inject(Router);
 
-  alertaRandom:number = 1 + (Math.floor(Math.random() * 4));
+
+  asistirAlerta() {
+
+    let alertaRandom:number = 1 + (Math.floor(Math.random() * 4));
+    this.router.navigateByUrl('/asistir/'+alertaRandom)
+  }
 
 }

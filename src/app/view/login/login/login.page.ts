@@ -8,7 +8,7 @@ import { UsuarioService } from 'src/app/servicio/usuario.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
@@ -17,11 +17,11 @@ export class LoginPage {
     password: new FormControl('', [Validators.required])
   });
 
-  enter(){
+  ngOnInit() {
+    this.usuario.setValue({mail: "", password: ""})
+  }
 
-    console.log(this.usuario.get('mail')?.touched )
-    console.log(this.usuario.get('mail')?.valid )
-    console.log(this.usuario.get('mail')?.errors )
+  enter(){
 
     if (this.usuario.valid){
       console.log(this.usuario.value.mail);
