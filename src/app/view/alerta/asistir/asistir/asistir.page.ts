@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Alerta } from 'src/app/interfaz/alerta';
 import { AlertaEstado } from 'src/app/interfaz/alerta-estado';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
+import { AlertaService } from 'src/app/servicio/alerta.service';
 import { LocalizacionService } from 'src/app/servicio/localizacion.service';
 
 @Component({
@@ -13,10 +14,11 @@ import { LocalizacionService } from 'src/app/servicio/localizacion.service';
 export class AsistirPage implements OnInit {
   private locService = inject(LocalizacionService);
   private rutaActiva = inject(ActivatedRoute);
+  private alertaService = inject(AlertaService);
   
   mostrarMapa = false;
   alertaId!:number;
-  alerta!: Alerta;
+  alerta!: Alerta | null;
 
   distancia: number = 0;
 
@@ -50,13 +52,16 @@ export class AsistirPage implements OnInit {
   }
 
   async buscarAlerta(id:any){
-    this.alerta = {
-      usuario: "1",
-      fecha: new Date(),
-      estado: AlertaEstado.PENDIENTE,
-      ubicacion: {
-        lat: -34.60026581256884,
-        lng: -58.593906116244945
+    this.alerta = await this.alertaService.getAlerta(id);
+    if(this.alerta){
+      this.alerta = {
+        usuario: "1",
+        fecha: new Date(),
+        estado: AlertaEstado.PENDIENTE,
+        ubicacion: {
+          lat: -34.60026581256884,
+          lng: -58.593906116244945
+        }
       }
     }
   }
@@ -69,7 +74,7 @@ export class AsistirPage implements OnInit {
 
   calcularDistancia() {
     let gps1 = new google.maps.LatLng(this.ubicacionPropia.lat, this.ubicacionPropia.lng);
-    let gps2 = new google.maps.LatLng(this.alerta.ubicacion?.lat!, this.alerta.ubicacion?.lng!);
+    let gps2 = new google.maps.LatLng(this.alerta!.ubicacion?.lat!, this.alerta!.ubicacion?.lng!);
     return google.maps.geometry.spherical.computeDistanceBetween(gps1, gps2);
   }
 

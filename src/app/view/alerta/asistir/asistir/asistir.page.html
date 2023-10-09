@@ -19,9 +19,9 @@
     <app-mapa
       *ngIf="mostrarMapa"
       class="mapa"
-      [centro]="alerta.ubicacion!"
+      [centro]="alerta!.ubicacion!"
       [dibujaCirculo]="true"
-      [circleCenter]="alerta.ubicacion!"
+      [circleCenter]="alerta!.ubicacion!"
       [acciones]="false"
       >
     </app-mapa>
