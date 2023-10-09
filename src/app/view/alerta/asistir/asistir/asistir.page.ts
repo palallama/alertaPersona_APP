@@ -17,7 +17,7 @@ export class AsistirPage implements OnInit {
   private alertaService = inject(AlertaService);
   
   mostrarMapa = false;
-  alertaId!:number;
+  alertaId!:string;
   alerta!: Alerta | null;
 
   distancia: number = 0;
@@ -31,13 +31,13 @@ export class AsistirPage implements OnInit {
 
   async ngOnInit() {
     this.alertaId = this.rutaActiva.snapshot.params['alerta'];
-    console.log(this.alertaId);
+    // console.log(this.alertaId);
 
     await this.buscarAlerta(this.alertaId);
     await this.setLocalizacion();
-    this.distancia = this.calcularDistancia();
-
+    
     if (this.alerta){
+      this.distancia = this.locService.calcularDistancia(this.ubicacionPropia, this.alerta?.ubicacion!);
       this.marcadores.push({
         position: {
           lat: this.alerta.ubicacion?.lat!,
@@ -53,7 +53,7 @@ export class AsistirPage implements OnInit {
 
   async buscarAlerta(id:any){
     this.alerta = await this.alertaService.getAlerta(id);
-    if(this.alerta){
+    if(!this.alerta){
       this.alerta = {
         usuario: "1",
         fecha: new Date(),
@@ -70,12 +70,6 @@ export class AsistirPage implements OnInit {
     let ubicacion = await this.locService.obtenerLocalizacion();
     this.ubicacionPropia.lng = ubicacion.longitude;
     this.ubicacionPropia.lat = ubicacion.latitude;
-  }
-
-  calcularDistancia() {
-    let gps1 = new google.maps.LatLng(this.ubicacionPropia.lat, this.ubicacionPropia.lng);
-    let gps2 = new google.maps.LatLng(this.alerta!.ubicacion?.lat!, this.alerta!.ubicacion?.lng!);
-    return google.maps.geometry.spherical.computeDistanceBetween(gps1, gps2);
   }
 
 }

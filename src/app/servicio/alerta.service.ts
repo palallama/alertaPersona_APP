@@ -34,8 +34,8 @@ export class AlertaService {
       fecha: new Date(2023, 10, 6),
       estado: AlertaEstado.CANCELADA,
       ubicacion: {
-        lat: -34.600236911265256, 
-        lng: -58.5938945644183
+        lat: -34.58904769918462,
+        lng: -58.59828565213417
       }
     },
     {
@@ -50,14 +50,14 @@ export class AlertaService {
     }
   ]
 
-  async getAlerta(id:string) : Promise<Alerta | null>{
-    let a = null;
+  async getAlerta(id:string) : Promise<Alerta>{
+    let a:Alerta;
     this.alertas.map( (alerta) => {
       if (alerta.id === id) {
         a = alerta;
       }
     })
-    return a;
+    return a!;
   }
 
 }

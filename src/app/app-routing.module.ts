@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./view/perfil/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
-    path: 'post-asistir',
+    path: 'post-asistir/:alerta',
     loadChildren: () => import('./view/alerta/asistir/post-asistir/post-asistir.module').then( m => m.PostAsistirPageModule)
   },
   {

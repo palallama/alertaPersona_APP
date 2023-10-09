@@ -6,11 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
+export class HomePage{
   private router = inject(Router);
 
-  click(){
-    console.log("click")
-  }
+  alertaRandom:number = 1 + (Math.floor(Math.random() * 4));
 
 }
