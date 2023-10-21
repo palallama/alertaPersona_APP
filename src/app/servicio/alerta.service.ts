@@ -59,31 +59,31 @@ export class AlertaService {
   ]
   
   getAlerta(alertaId:any){
-    return this.http.get(`${this.URL_COMPLETA}/${alertaId}`).pipe(
+    return this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(
       map( (res:any) => res.results )
     );
   }
 
   getAlertas(){
-    return this.http.get(`${this.URL_COMPLETA}/`).pipe(
+    return this.http.get(`${this.URL_COMPLETA}/alerta/`).pipe(
       map( (res:any) => res.results )
     );
   }
 
   insertAlerta(alerta:any){
-    return this.http.post(`${this.URL_COMPLETA}/`, alerta).pipe(
+    return this.http.post(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(
       map( (res:any) => res.results )
     );
   }
 
   updateAlerta(alerta:any){
-    return this.http.patch(`${this.URL_COMPLETA}/`, alerta).pipe(
+    return this.http.patch(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(
       map( (res:any) => res.results )
     );
   }
 
   deleteAlerta(alertaId:any){
-    return this.http.delete(`${this.URL_COMPLETA}/${alertaId}`).pipe(
+    return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(
       map( (res:any) => res.results )
     );
   }
