@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Alerta } from 'src/app/interfaz/alerta';
-import { AlertaEstado } from 'src/app/interfaz/alerta-estado';
+import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { LocalizacionService } from 'src/app/servicio/localizacion.service';
@@ -23,8 +22,8 @@ export class AsistirPage implements OnInit {
   distancia: number = 0;
 
   ubicacionPropia : Ubicacion = {
-    lat: 0,
-    lng: 0
+    latitud: 0,
+    longitud: 0
   }
 
   marcadores: Marcador[] = [];
@@ -40,8 +39,8 @@ export class AsistirPage implements OnInit {
       this.distancia = this.locService.calcularDistancia(this.ubicacionPropia, this.alerta?.ubicacion!);
       this.marcadores.push({
         position: {
-          lat: this.alerta.ubicacion?.lat!,
-          lng: this.alerta.ubicacion?.lng!
+          latitud: this.alerta.ubicacion?.latitud!,
+          longitud: this.alerta.ubicacion?.longitud!
         },
         title: "Alerta",
         icon: "./assets/icons/icons_maps/icon_emis.png"
@@ -52,24 +51,48 @@ export class AsistirPage implements OnInit {
   }
 
   async buscarAlerta(id:any){
-    this.alerta = await this.alertaService.getAlerta(id);
-    if(!this.alerta){
-      this.alerta = {
-        usuario: "1",
-        fecha: new Date(),
-        estado: AlertaEstado.PENDIENTE,
-        ubicacion: {
-          lat: -34.60026581256884,
-          lng: -58.593906116244945
+    this.alertaService.getAlerta(id).subscribe({
+      next: (res:any) => {
+        this.alerta = res
+      },
+      error: (res:any) => {
+        console.error(res)
+      },
+      complete: () => {
+        if(!this.alerta){
+          this.alerta = {
+            usuario: "1",
+            emision: new Date(),
+            estado: AlertaEstado.EMITIDA,
+            ubicacion: {
+              latitud: -34.60026581256884,
+              longitud: -58.593906116244945
+            }
+          }
         }
       }
-    }
+    })
+  }
+
+  async buscarAlertaTest(id:any){
+      this.alerta = await this.alertaService.getAlertaTest(id);
+      if(!this.alerta){
+          this.alerta = {
+              usuario: "1",
+              emision: new Date(),
+              estado: AlertaEstado.EMITIDA,
+              ubicacion: {
+              latitud: -34.60026581256884,
+              longitud: -58.593906116244945
+              }
+          }
+      }
   }
 
   async setLocalizacion(){
     let ubicacion = await this.locService.obtenerLocalizacion();
-    this.ubicacionPropia.lng = ubicacion.longitude;
-    this.ubicacionPropia.lat = ubicacion.latitude;
+    this.ubicacionPropia.longitud = ubicacion.longitude;
+    this.ubicacionPropia.latitud = ubicacion.latitude;
   }
 
 }

@@ -14,13 +14,13 @@ export class PostEmitirPage implements OnInit{
   mostrarMapa = false;
 
   center : Ubicacion = {
-    lat: 0,
-    lng: 0
+    latitud: 0,
+    longitud: 0
   }
   emisor: Marcador = {
     position: {
-      lat: 0,
-      lng: 0
+      latitud: 0,
+      longitud: 0
     },
     title: "Emisor",
     icon: "./assets/icons/icons_maps/icon_emis.png"
@@ -29,7 +29,7 @@ export class PostEmitirPage implements OnInit{
   // asistentes: Marcador[] = [
   //   {
   //     position: {
-  //       lat: -34.6044089734555,
+  //       latitud: -34.6044089734555,
   //       lng: -58.39605072988798
   //     },
   //     title: "Asistente 1",
@@ -49,8 +49,8 @@ export class PostEmitirPage implements OnInit{
 
   async setLocalizacion(){
     let ubicacion = await this.locService.obtenerLocalizacion();
-    this.center.lng = ubicacion.longitude;
-    this.center.lat = ubicacion.latitude;
+    this.center.longitud = ubicacion.longitude;
+    this.center.latitud = ubicacion.latitude;
     this.emisor.position = this.center;
     this.mostrarMapa = true;
   }

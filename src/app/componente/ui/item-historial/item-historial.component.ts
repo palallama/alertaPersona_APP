@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Alerta } from 'src/app/interfaz/alerta';
-import { AlertaEstado } from 'src/app/interfaz/alerta-estado';
+import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 
 @Component({
   selector: 'app-item-historial',
@@ -12,8 +11,8 @@ export class ItemHistorialComponent {
   @Input() alerta: Alerta = {
     id: "ale1",
     usuario: "julian@mail.com",
-    fecha: new Date(2023, 8, 24),
-    estado: AlertaEstado.PENDIENTE
+    emision: new Date(2023, 8, 24),
+    estado: AlertaEstado.EMITIDA
   };
 
 }

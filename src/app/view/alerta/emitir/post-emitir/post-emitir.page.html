@@ -13,7 +13,7 @@
         *ngIf="mostrarMapa"
         class="mapa"
         [marcadores]="marcadores"
-        [centro]="center"
+        [centro]="{lat: center.latitud, lng: center.longitud}"
         >
         </app-mapa>
       </ion-col>

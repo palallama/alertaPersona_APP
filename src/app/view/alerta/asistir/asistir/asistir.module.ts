@@ -8,6 +8,7 @@ import { AsistirPageRoutingModule } from './asistir-routing.module';
 
 import { AsistirPage } from './asistir.page';
 import { ComponenteModule } from 'src/app/componente/componente.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ComponenteModule } from 'src/app/componente/componente.module';
     IonicModule,
     AsistirPageRoutingModule,
     ComponenteModule,
+    HttpClientModule
   ],
   declarations: [AsistirPage]
 })

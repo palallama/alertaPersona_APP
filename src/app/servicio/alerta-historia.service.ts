@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertaEstado } from '../interfaz/alerta-estado';
-import { Alerta } from '../interfaz/alerta';
+import { Alerta, AlertaEstado } from '../interfaz/alerta';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +10,13 @@ export class AlertaHistoriaService {
     {
       id: "ale1",
       usuario: "julian@mail.com",
-      fecha: new Date("2023/06/20"),
+      emision: new Date("2023/06/20"),
       estado: AlertaEstado.SOLUCIONADA
     },
     {
       id: "ale2",
       usuario: "julian@mail.com",
-      fecha: new Date("2023/07/16"),
+      emision: new Date("2023/07/16"),
       estado: AlertaEstado.CANCELADA
     }
   ]
@@ -26,25 +25,25 @@ export class AlertaHistoriaService {
     {
       id: "ale3",
       usuario: "julian@mail.com",
-      fecha: new Date("2023/06/20"),
+      emision: new Date("2023/06/20"),
       estado: AlertaEstado.SOLUCIONADA
     },    
     {
       id: "ale4",
       usuario: "julian@mail.com",
-      fecha: new Date("2023/07/16"),
+      emision: new Date("2023/07/16"),
       estado: AlertaEstado.CANCELADA
     },    
     {
       id: "ale5",
       usuario: "mail@mail.com",
-      fecha: new Date("2023/07/18"),
+      emision: new Date("2023/07/18"),
       estado: AlertaEstado.CANCELADA
     },
     {
       id: "ale6",
       usuario: "julian@mail.com",
-      fecha: new Date("2023/08/10"),
+      emision: new Date("2023/08/10"),
       estado: AlertaEstado.SOLUCIONADA
     }
   ]

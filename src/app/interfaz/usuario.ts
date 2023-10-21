@@ -3,12 +3,13 @@ export interface Usuario {
     nombre: string;
     apellido: string;
     dni: number;
-    nroTramite: number;
-    genero: string;
-    fchNacimiento: Date;
     telefono: string;
+    nroTramite: number;
     mail: string;
-    password: string;
     validado: boolean;
     activo: boolean;
+    password?: string;
+
+    genero?: string;
+    fchNacimiento?: Date;
 }

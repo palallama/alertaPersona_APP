@@ -1,8 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
+import { Marcador, Ruta, Ubicacion } from 'src/app/interfaz/marcador';
 import { MapDirectionsService } from '@angular/google-maps';
 import { map, Observable } from 'rxjs';
-import { Ruta } from 'src/app/interfaz/ruta';
 
 // DaVinci
 // -34.604346872835364, -58.39602166108761
@@ -381,8 +380,14 @@ export class MapaComponent implements OnInit {
         // console.log(this.ruta)
 
         const request: google.maps.DirectionsRequest = {
-            destination: this.ruta.destino,
-            origin: this.ruta.origen,
+            destination: {
+                lat: this.ruta.destino.latitud,
+                lng: this.ruta.destino.longitud
+            },
+            origin: {
+                lat: this.ruta.origen.latitud,
+                lng: this.ruta.origen.longitud
+            },
             travelMode: google.maps.TravelMode.WALKING
         };
         this.mapDirectionsService.route(request).pipe(
@@ -392,7 +397,10 @@ export class MapaComponent implements OnInit {
                 this.directionsResults = response.result;
             },
             complete: () => {
-                this.circleCenter = this.ruta.destino;
+                this.circleCenter = {
+                    lat: this.ruta.destino.latitud,
+                    lng: this.ruta.destino.longitud
+                };
                 this.dibujaCirculo = true;
             }
         });

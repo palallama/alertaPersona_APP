@@ -1,11 +1,19 @@
-import { AlertaEstado } from "./alerta-estado";
 import { Ubicacion } from "./marcador";
 
 export interface Alerta {
 
     id?: string,
     usuario: string,
-    fecha: Date,
-    estado: AlertaEstado
-    ubicacion?: Ubicacion
+    emision: Date,
+    estado: AlertaEstado,
+    ubicacion?: Ubicacion,
+    cerrada?: boolean,
+    
 }
+
+export enum AlertaEstado {
+    EMITIDA = 'Emitida',
+    CANCELADA = 'Cancelada',
+    SOLUCIONADA = 'Solucionada',
+}
+

@@ -5,6 +5,11 @@ export interface Marcador {
 }
 
 export interface Ubicacion {
-    lat: number,
-    lng: number
+    latitud: number,
+    longitud: number
+}
+
+export interface Ruta {
+    origen: Ubicacion,
+    destino: Ubicacion
 }

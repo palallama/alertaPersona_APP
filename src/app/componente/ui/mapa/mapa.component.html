@@ -7,7 +7,7 @@
 >
   <map-marker
     *ngFor="let marcador of marcadores"
-    [position]="marcador.position"
+    [position]="{lat:marcador.position.latitud, lng: marcador.position.longitud}"
     [title]="marcador.title"
   >
   </map-marker>

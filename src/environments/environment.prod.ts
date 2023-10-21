@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+
+  API_BASEURL: 'http://localhost',
+  API_PORT: '4000',
+  API_VERSION: 'api/v1',
+
 };
