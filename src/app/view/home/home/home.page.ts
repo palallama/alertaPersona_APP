@@ -13,7 +13,7 @@ export class HomePage{
   asistirAlerta() {
 
     let alertaRandom:number = 1 + (Math.floor(Math.random() * 4));
-    this.router.navigateByUrl('/asistir/'+alertaRandom)
+    this.router.navigateByUrl('/asistir/'+9)
   }
 
 }

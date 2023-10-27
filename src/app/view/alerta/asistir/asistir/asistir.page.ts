@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
@@ -30,13 +30,18 @@ export class AsistirPage implements OnInit {
 
   async ngOnInit() {
     this.alertaId = this.rutaActiva.snapshot.params['alerta'];
-    // console.log(this.alertaId);
+    // console.log(this.alertaId); 
 
-    await this.buscarAlerta(this.alertaId);
+    // this.refresh()
+    this.buscarAlerta(this.alertaId);
+  }
+
+  async seteos() {
+
     await this.setLocalizacion();
     
     if (this.alerta){
-      this.distancia = this.locService.calcularDistancia(this.ubicacionPropia, this.alerta?.ubicacion!);
+      this.distancia = await this.locService.calcularDistancia(this.ubicacionPropia, this.alerta?.ubicacion!);
       this.marcadores.push({
         position: {
           latitud: this.alerta.ubicacion?.latitud!,
@@ -45,31 +50,21 @@ export class AsistirPage implements OnInit {
         title: "Alerta",
         icon: "./assets/icons/icons_maps/icon_emis.png"
       });
-
+      console.log("1")
       this.mostrarMapa = true;
     }
   }
-
   async buscarAlerta(id:any){
     this.alertaService.getAlerta(id).subscribe({
       next: (res:any) => {
+        console.log(res);
         this.alerta = res
       },
       error: (res:any) => {
         console.error(res)
       },
       complete: () => {
-        if(!this.alerta){
-          this.alerta = {
-            usuario: "1",
-            emision: new Date(),
-            estado: AlertaEstado.EMITIDA,
-            ubicacion: {
-              latitud: -34.60026581256884,
-              longitud: -58.593906116244945
-            }
-          }
-        }
+        this.seteos();
       }
     })
   }

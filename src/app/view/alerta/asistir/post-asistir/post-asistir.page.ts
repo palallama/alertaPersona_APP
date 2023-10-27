@@ -63,6 +63,7 @@ export class PostAsistirPage implements OnInit {
                 console.error(res);
             },
             complete: () => {
+                console.log(this.alerta)
                 if(!this.alerta){
                     this.alerta = {
                     usuario: "1",

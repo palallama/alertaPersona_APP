@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Alerta, AlertaEstado } from '../interfaz/alerta';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -59,33 +59,23 @@ export class AlertaService {
   ]
   
   getAlerta(alertaId:any){
-    return this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(
-      map( (res:any) => res.results )
-    );
+    return this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`);
   }
 
   getAlertas(){
-    return this.http.get(`${this.URL_COMPLETA}/alerta/`).pipe(
-      map( (res:any) => res.results )
-    );
+    return this.http.get(`${this.URL_COMPLETA}/alerta/`);
   }
 
   insertAlerta(alerta:any){
-    return this.http.post(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(
-      map( (res:any) => res.results )
-    );
+    return this.http.post(`${this.URL_COMPLETA}/alerta/`, alerta);
   }
 
   updateAlerta(alerta:any){
-    return this.http.patch(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(
-      map( (res:any) => res.results )
-    );
+    return this.http.patch(`${this.URL_COMPLETA}/alerta/`, alerta);
   }
 
   deleteAlerta(alertaId:any){
-    return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(
-      map( (res:any) => res.results )
-    );
+    return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`);
   }
 
   async getAlertaTest(id:string) : Promise<Alerta>{
