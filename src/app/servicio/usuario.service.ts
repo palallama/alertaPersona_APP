@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../interfaz/usuario';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
   private http = inject(HttpClient);
+  private storageService = inject(StorageService);
 
   private API_BASEURL = environment.API_BASEURL;
   private API_PORT = environment.API_PORT;
@@ -54,7 +56,15 @@ export class UsuarioService {
 
   iniciarSesion(mail:string, password:string) {
     return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).pipe(
-      map( (res:any) => res.results )
+      map( (res:any) => {
+        if (res.error){
+          console.error(res.error)
+        }else{
+          console.log(res.data.token);
+          this.storageService.set('token', res.data.token);
+          return res.data.token;
+        }
+      } )
     );
   }
 

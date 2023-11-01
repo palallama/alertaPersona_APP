@@ -17,13 +17,14 @@ export class FooterComponent implements AfterViewInit {
   deltaMin: number = 300;
   deltaMinOnMove: number = 550;
   gesture!: Gesture;
+  initialPosition: number = 0;
 
   ngAfterViewInit() {
-    this.crearGesto()
+    this.crearGesto();
   }
 
   crearGesto() {
-    this.footer.nativeElement.style.transform = `translateY(0px)` 
+    this.footer.nativeElement.style.transform = `translateY(${this.initialPosition}px)`;
     this.gesture = this.gestureCtrl.create({
       el: this.footer.nativeElement,
       direction: 'y',
@@ -43,24 +44,24 @@ export class FooterComponent implements AfterViewInit {
       current: detail.currentY,
       delta: detail.deltaY,
     }
-    let deltaNomalizada = aux.delta * (-1)
-    this.footer.nativeElement.style.transform = `translateY(-${deltaNomalizada}px)` 
+    let deltaNomalizada = aux.delta * (-1);
+    this.footer.nativeElement.style.transform = `translateY(-${deltaNomalizada}px)`;
     if (deltaNomalizada >= this.deltaMinOnMove){
-      this.emitirAlerta()
+      this.emitirAlerta();
     }
   }
 
   private onEnd(detail:any) {
-    this.footer.nativeElement.style.transform = `translateY(0px)` 
+    this.footer.nativeElement.style.transform = `translateY(${this.initialPosition}px)`;
     let aux = {
       type: detail.type,
       from: detail.startY,
       current: detail.currentY,
       delta: detail.deltaY,
     }
-    let deltaNomalizada = aux.delta * (-1)
+    let deltaNomalizada = aux.delta * (-1);
     if (deltaNomalizada >= this.deltaMin){
-      this.emitirAlerta()
+      this.emitirAlerta();
     }
   }
 
@@ -75,7 +76,7 @@ export class FooterComponent implements AfterViewInit {
     });
 
     // creo de nuevo el gesto
-    this.crearGesto()
+    this.crearGesto();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 import { UsuarioService } from 'src/app/servicio/usuario.service';
 
 @Component({
@@ -26,9 +27,22 @@ export class LoginPage implements OnInit {
     if (this.usuario.valid){
       console.log(this.usuario.value.mail);
       console.log(this.usuario.value.password);
-      if (this.usuarioService.iniciarSesion(this.usuario.value.mail! , this.usuario.value.password! )) {
-        this.router.navigateByUrl("/");
-      }
+      
+      this.usuarioService.iniciarSesion(this.usuario.value.mail!, this.usuario.value.password!).subscribe({
+        next: (res:any) => {
+          if (res!=""){
+            console.log(jwtDecode(res));
+            // this.router.navigateByUrl("/"); 
+          }
+        },
+        error: (err:any) => {
+          console.log(err);
+        }
+      })
+
+      // if (this.usuarioService.iniciarSesion(this.usuario.value.mail! , this.usuario.value.password! )) {
+      //   this.router.navigateByUrl("/");
+      // }
     }
   }
 

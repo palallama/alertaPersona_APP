@@ -14,21 +14,22 @@ export class PerfilPage implements OnInit {
 
     let date = new Date();
 
-    this.usuario = {
-      id: '0',
-      nombre: "Julian",
-      apellido: "Torossian",
-      dni: 41751057,
-      nroTramite: 0,
-      genero: "Masculino",
-      fchNacimiento: date,
-      telefono: "2944-900241",
-      mail: "julian.torossian@outlook.com",
-      password: "",
-      validado: true,
-      activo: true
-    }
+    // this.usuario = {
+    //   id: '0',
+    //   nombre: "Julian",
+    //   apellido: "Torossian",
+    //   dni: 41751057,
+    //   nroTramite: 0,
+    //   genero: "Masculino",
+    //   fchNacimiento: date,
+    //   telefono: "2944-900241",
+    //   mail: "julian.torossian@outlook.com",
+    //   password: "",
+    //   validado: true,
+    //   activo: true
+    // }
 
   }
+
 
 }
