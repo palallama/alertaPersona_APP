@@ -4,6 +4,8 @@ import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../interfaz/usuario';
 import { StorageService } from './storage.service';
+import { jwtDecode } from 'jwt-decode';
+import { StorageKeys } from '../interfaz/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import { StorageService } from './storage.service';
 export class UsuarioService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
+
 
   private API_BASEURL = environment.API_BASEURL;
   private API_PORT = environment.API_PORT;
@@ -61,11 +64,19 @@ export class UsuarioService {
           console.error(res.error)
         }else{
           console.log(res.data.token);
-          this.storageService.set('token', res.data.token);
+          let aux = jwtDecode(res.data.token) as any;
+          this.storageService.set(StorageKeys.TOKEN, res.data.token);
+          console.log(aux)
+          this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
           return res.data.token;
         }
       } )
     );
+  }
+
+  async getUsuarioLoggeado(){
+    let aux = await this.storageService.get(StorageKeys.USUARIO_ID);
+    return (aux) ? aux : undefined;
   }
 
 

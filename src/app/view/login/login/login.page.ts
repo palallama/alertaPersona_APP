@@ -18,8 +18,12 @@ export class LoginPage implements OnInit {
     password: new FormControl('', [Validators.required])
   });
 
-  ngOnInit() {
+  async ngOnInit() {
     this.usuario.setValue({mail: "", password: ""})
+    console.log("usuario - ", await this.usuarioService.getUsuarioLoggeado());
+    if ( await this.usuarioService.getUsuarioLoggeado() !== undefined){
+      this.router.navigateByUrl("/home")
+    }
   }
 
   enter(){

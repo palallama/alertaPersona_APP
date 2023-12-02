@@ -34,7 +34,6 @@
     "@ionic/angular": "^7.0.0",
     "@ionic/storage-angular": "^4.0.0",
     "ionicons": "^7.0.0",
-    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -71,6 +70,9 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "ts-node": "^8.3.0",
     "typescript": "~5.0.2"
+  },
+  "browser": {
+    "crypto": false
   },
   "description": ""
 }
