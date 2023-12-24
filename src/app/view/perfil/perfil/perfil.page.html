@@ -9,26 +9,28 @@
 
 <ion-content [fullscreen]="true" >
 
-  <div class="c-flex">
-    <ion-img class="imagenLogo" src="./assets/icons/userBox.svg" alt="user icon"></ion-img>
-
-    <h2>{{usuario.nombre}} {{usuario.apellido}}</h2>
-  </div>
-  <div class="dataUsuario">
-      <table>
-        <tr>
-          <td class="tituloTable">Email:</td>
-          <td class="attTable">{{usuario.mail}}</td>
-        </tr>
-        <tr>
-          <td class="tituloTable">Telefono:</td>
-          <td class="attTable">{{usuario.telefono}}</td>
-        </tr>
-        <tr>
-          <td class="tituloTable">DNI:</td>
-          <td class="attTable">{{usuario.dni}}</td>
-        </tr>
-      </table>
+  <div *ngIf="usuario">
+    <div class="c-flex">
+      <ion-img class="imagenLogo" src="./assets/icons/userBox.svg" alt="user icon"></ion-img>
+  
+      <h2>{{usuario.nombre}} {{usuario.apellido}}</h2>
+    </div>
+    <div class="dataUsuario">
+        <table>
+          <tr>
+            <td class="tituloTable">Email:</td>
+            <td class="attTable">{{usuario.mail}}</td>
+          </tr>
+          <tr>
+            <td class="tituloTable">Telefono:</td>
+            <td class="attTable">{{usuario.telefono}}</td>
+          </tr>
+          <tr>
+            <td class="tituloTable">DNI:</td>
+            <td class="attTable">{{usuario.dni}}</td>
+          </tr>
+        </table>
+    </div>
   </div>
 
   <ion-footer class="footer">

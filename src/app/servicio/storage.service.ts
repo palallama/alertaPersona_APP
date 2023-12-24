@@ -23,11 +23,11 @@ export class StorageService {
     this._storage?.set(key, value);
   }
 
+  public remove(key: string){
+    this._storage?.remove(key);
+  }
+
   public async get(key: string){
     return await this.storage.get(key) as string;
-    // this._storage?.get(key).then((result) => {
-    //   console.log('My result', result);
-    // });
-    // return undefined;
   }
 }

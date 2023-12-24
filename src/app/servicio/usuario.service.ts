@@ -58,29 +58,56 @@ export class UsuarioService {
   // Gestiones
 
   iniciarSesion(mail:string, password:string) {
-    return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).pipe(
-      map( (res:any) => {
-        if (res.error){
-          console.error(res.error)
-        }else{
-          console.log(res.data.token);
-          let aux = jwtDecode(res.data.token) as any;
-          this.storageService.set(StorageKeys.TOKEN, res.data.token);
-          console.log(aux)
-          this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
-          return res.data.token;
-        }
-      } )
-    );
+    return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`);
+    // this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).subscribe({
+    //   next: (res:any) => {
+    //     console.log(res);
+    //     let aux = jwtDecode(res.data.token) as any;
+    //     this.storageService.set(StorageKeys.TOKEN, res.data.token);
+    //     this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
+    //     return true;
+    //   },
+    //   error: (err:any) => {
+    //     console.log(err)
+    //     return false;
+    //   }
+    // })
+  }
+
+  cerrarSesion() {
+    this.storageService.remove(StorageKeys.TOKEN);
   }
 
   async getUsuarioLoggeado(){
-    let aux = await this.storageService.get(StorageKeys.USUARIO_ID);
-    return (aux) ? aux : undefined;
+    let token = await this.storageService.get(StorageKeys.TOKEN);
+    if (token){
+      let aux = jwtDecode(token) as any;
+      return aux.id;
+    }
+    return undefined;
+  }
+
+  async validarUsuario() {
+
   }
 
 
 
+
+  // iniciarSesion(mail:string, password:string) {
+  //   return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).pipe(
+  //     map( (res:any) => {
+  //       if (res.error){
+  //         console.error(res.error)
+  //       }else{
+  //         let aux = jwtDecode(res.data.token) as any;
+  //         this.storageService.set(StorageKeys.TOKEN, res.data.token);
+  //         this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
+  //         return res.data.token;
+  //       }
+  //     } )
+  //   );
+  // }
 
   // iniciarSesion(usuario:string, password:string) {
   //   let existe = false;

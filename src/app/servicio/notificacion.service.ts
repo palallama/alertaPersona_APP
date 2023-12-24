@@ -44,7 +44,7 @@ export class NotificacionService {
 
   private async addListeners() {
     await PushNotifications.addListener('registration', token => {
-      console.info('Registration token: ', token.value);
+      console.log('Registration token: ', token.value);
       // alert("Push registration success, token: " +token.value);
     });
   

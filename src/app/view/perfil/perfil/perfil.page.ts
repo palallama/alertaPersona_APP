@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Usuario } from 'src/app/interfaz/usuario';
+import { UsuarioService } from 'src/app/servicio/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -7,13 +8,25 @@ import { Usuario } from 'src/app/interfaz/usuario';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-
+  private usuarioService = inject(UsuarioService);
   usuario!: Usuario;
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    let date = new Date();
+    let usuLg = await this.usuarioService.getUsuarioLoggeado();
+    if(usuLg){
+      this.usuarioService.getUsuario(usuLg).subscribe({
+        next: (res:any) => {
+          console.log(res);
+          this.usuario = res;
+        },
+        error: (err:any) => {
+          console.error(err);
+        }
+      })
+    }
 
+    // let date = new Date();
     // this.usuario = {
     //   id: '0',
     //   nombre: "Julian",

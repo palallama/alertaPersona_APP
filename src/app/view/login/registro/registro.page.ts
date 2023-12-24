@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaz/usuario';
+import { UsuarioService } from 'src/app/servicio/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -8,11 +10,11 @@ import { Usuario } from 'src/app/interfaz/usuario';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage {
+  private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
+
 
   usuario!: Usuario;
-
-  test!: string;
-
   usuarioNuevo = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     apellido: new FormControl('', [Validators.required]),
@@ -27,21 +29,39 @@ export class RegistroPage {
   });
 
   registro() {
-
-    console.log(this.usuarioNuevo.get('nombre')?.errors);
-
-    console.log(this.usuarioNuevo.get('dni')?.errors);
-
-
-    // console.log(this.usuarioNuevo);
+    console.log(this.usuarioNuevo);
+    console.log(this.usuarioNuevo.valid);
+    console.log(this.usuarioNuevo.value.password);
+    console.log(this.usuarioNuevo.value.passwordRepetida);
     if (this.usuarioNuevo.valid && (this.usuarioNuevo.value.password === this.usuarioNuevo.value.passwordRepetida)){
       console.log(" *** Registrado");
-      console.log(this.usuarioNuevo.value.nombre)
-      console.log(this.usuarioNuevo.value.apellido)
-      console.log(this.usuarioNuevo.value.dni)
-      console.log(this.usuarioNuevo.value.mail)
-      console.log(this.usuarioNuevo.value.password)
+
+      this.usuario = {
+        nombre: this.usuarioNuevo.value.nombre!,
+        apellido: this.usuarioNuevo.value.apellido!,
+        dni: this.usuarioNuevo.value.dni!,
+        telefono: this.usuarioNuevo.value.telefono!,
+        nroTramite: this.usuarioNuevo.value.nroTramite!,
+        mail: this.usuarioNuevo.value.mail!,
+        password: this.usuarioNuevo.value.password!,
+        genero: this.usuarioNuevo.value.nombre!,
+        fchNacimiento: this.usuarioNuevo.value.fchNacimiento!,
+      }
+
+      this.usuarioService.insertUsuario(this.usuario).subscribe({
+        next: (res:any) => {
+          console.log(res);
+          console.log("usuario registrado");
+          this.router.navigateByUrl("/login");
+        },
+        error: (err:any) => {
+          console.error(err);
+        }
+      })
+
+
     }else{
+      console.log(this.usuarioNuevo.errors)
       console.log("*** Error");
     }
   }
