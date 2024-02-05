@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
 import { AlertaService } from 'src/app/servicio/alerta.service';
+import { AsistenteService } from 'src/app/servicio/asistente.service';
 import { LocalizacionService } from 'src/app/servicio/localizacion.service';
+import { UsuarioService } from 'src/app/servicio/usuario.service';
 
 @Component({
   selector: 'app-asistir',
@@ -14,7 +16,12 @@ export class AsistirPage implements OnInit {
   private locService = inject(LocalizacionService);
   private rutaActiva = inject(ActivatedRoute);
   private alertaService = inject(AlertaService);
+  private usuarioService = inject(UsuarioService);
+  private asistenteService = inject(AsistenteService)
+  private router = inject(Router);
   
+  usuarioId: any;
+
   mostrarMapa = false;
   alertaId!:string;
   alerta!: Alerta | null;
@@ -29,6 +36,7 @@ export class AsistirPage implements OnInit {
   marcadores: Marcador[] = [];
 
   async ngOnInit() {
+    this.usuarioId = await this.usuarioService.getUsuarioLoggeado();
     this.alertaId = this.rutaActiva.snapshot.params['alerta'];
     // console.log(this.alertaId); 
 
@@ -50,7 +58,6 @@ export class AsistirPage implements OnInit {
         title: "Alerta",
         icon: "./assets/icons/icons_maps/icon_emis.png"
       });
-      console.log("1")
       this.mostrarMapa = true;
     }
   }
@@ -69,25 +76,34 @@ export class AsistirPage implements OnInit {
     })
   }
 
-  async buscarAlertaTest(id:any){
-      this.alerta = await this.alertaService.getAlertaTest(id);
-      if(!this.alerta){
-          this.alerta = {
-              usuario: "1",
-              emision: new Date(),
-              estado: AlertaEstado.EMITIDA,
-              ubicacion: {
-              latitud: -34.60026581256884,
-              longitud: -58.593906116244945
-              }
-          }
-      }
-  }
-
   async setLocalizacion(){
     let ubicacion = await this.locService.obtenerLocalizacion();
     this.ubicacionPropia.longitud = ubicacion.longitude;
     this.ubicacionPropia.latitud = ubicacion.latitude;
+  }
+
+  async accionAsistente(accion:string) {
+
+    const asistente = {
+      alerta: this.alertaId,
+      usuario: this.usuarioId,
+      estado: accion,
+      observaciones: ""
+    }
+
+    this.asistenteService.insertAsistente(asistente).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        if (accion === 'A') {
+          this.router.navigateByUrl(`/post-asistir/${this.alertaId}`)
+        }else{
+          this.router.navigateByUrl(`/home`)
+        }
+      },
+      error: (err:any) => {
+        console.log(err);
+      }
+    })
   }
 
 }

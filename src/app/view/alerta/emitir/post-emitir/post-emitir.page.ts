@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Alerta } from 'src/app/interfaz/alerta';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
+import { AlertaService } from 'src/app/servicio/alerta.service';
 import { LocalizacionService } from 'src/app/servicio/localizacion.service';
 import { UsuarioService } from 'src/app/servicio/usuario.service';
 @Component({
@@ -13,10 +14,13 @@ export class PostEmitirPage implements OnInit{
   private router = inject(Router);
   private locService = inject(LocalizacionService);
   private usuarioService = inject(UsuarioService);
+  private alertaService = inject(AlertaService);
 
   usuarioId?: string;
 
   mostrarMapa = false;
+
+  alerta!: Alerta;
 
   center : Ubicacion = {
     latitud: 0,
@@ -61,18 +65,40 @@ export class PostEmitirPage implements OnInit{
     this.mostrarMapa = true;
   }
 
-  resuelto(){
-    this.router.navigateByUrl('/home')
+  accionAlerta(accion:string){
+
+    this.alertaService.cerrarAlerta(this.alerta.id, accion).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.router.navigateByUrl('/home')
+      },
+      error: (err:any) => {
+        console.log(err);
+      }
+    })
+
   }
 
   emitirAlerta(){
 
     let alerta = {
       usuario: this.usuarioId!,
-      ubicacion: this.center
+      ubicacion: {
+        latitud: this.center.latitud.toString(),
+        longitud: this.center.longitud.toString()
+      }
     }
 
-    console.log(alerta)
+    console.log(alerta);
+    this.alertaService.insertAlerta(alerta).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.alerta = res;
+      },
+      error: (err) => {
+          console.log(err);
+      },
+    })
 
   }
 

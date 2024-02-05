@@ -21,7 +21,8 @@
     <ion-row>
       <ion-col>
 
-        <app-boton-general (botonClick)="resuelto()" label="Resuelto" style="width: 100%; margin-top: 16px;"></app-boton-general>
+        <app-boton-general (botonClick)="accionAlerta('S')" label="Resuelto" style="width: 100%; margin-top: 16px;"></app-boton-general>
+        <app-boton-general (botonClick)="accionAlerta('C')" label="Cancelar" style="width: 80%; margin-top: 16px;" class="danger"></app-boton-general>
 
       </ion-col>
     </ion-row>

@@ -1,10 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ruta } from 'src/app/interfaz/marcador';
 import { Ubicacion } from 'src/app/interfaz/marcador';
 import { LocalizacionService } from 'src/app/servicio/localizacion.service';
 import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 import { AlertaService } from 'src/app/servicio/alerta.service';
+import { UsuarioService } from 'src/app/servicio/usuario.service';
+import { interval, switchMap, tap } from 'rxjs';
 
 
 @Component({
@@ -12,13 +14,16 @@ import { AlertaService } from 'src/app/servicio/alerta.service';
     templateUrl: './post-asistir.page.html',
     styleUrls: ['./post-asistir.page.scss'],
 })
-export class PostAsistirPage implements OnInit {
+export class PostAsistirPage implements OnInit, OnDestroy {
     private router = inject(Router);
     private rutaActiva = inject(ActivatedRoute);
     private locService = inject(LocalizacionService);
+    private usuarioService = inject(UsuarioService);
 
     private alertaService = inject(AlertaService);
     
+    usuarioId: any;
+
     alertaId!: string;
     mostrarMapa = false;
 
@@ -36,15 +41,22 @@ export class PostAsistirPage implements OnInit {
     }
 
     async ngOnInit() {
+        this.usuarioId = await this.usuarioService.getUsuarioLoggeado();
         this.alertaId = this.rutaActiva.snapshot.params['alerta'];
 
-        await this.buscarAlerta(this.alertaId);
+        this.buscarAlerta(this.alertaId);
+        console.log("antes de localizacion")
         await this.setLocalizacion();
 
-        if (this.alerta){
-            this.ruta.destino = this.alerta.ubicacion!;
-            this.mostrarMapa = true;
-        }
+        // if (this.alerta){
+        //     this.ruta.destino = this.alerta.ubicacion!;
+        //     this.mostrarMapa = true;
+        // }
+        console.log("fin ngOnInit");
+    }
+
+    ngOnDestroy(): void {
+        
     }
     
     async setLocalizacion(){
@@ -54,10 +66,20 @@ export class PostAsistirPage implements OnInit {
     }
 
     async buscarAlerta(id:any){
-
-        this.alertaService.getAlerta(id).subscribe({
+        let primerBusqueda = true;
+        this.alertaService.getAlertaPeriodica(id).subscribe({
             next: (res:any) => {
                 this.alerta = res;
+
+                if (this.alerta && primerBusqueda){
+                    this.ruta.destino = this.alerta.ubicacion!;
+                    this.mostrarMapa = true;
+                    primerBusqueda = false;
+                }
+                if (this.alerta.cerrada) {
+                    alert("Se cerro la alerta, gracias por tu ayuda");
+                    this.resuelto()
+                }
             },
             error: (res:any) => {
                 console.error(res);
@@ -66,13 +88,13 @@ export class PostAsistirPage implements OnInit {
                 console.log(this.alerta)
                 if(!this.alerta){
                     this.alerta = {
-                    usuario: "1",
-                    emision: new Date(),
-                    estado: AlertaEstado.EMITIDA,
-                    ubicacion: {
-                        latitud: -34.60026581256884,
-                        longitud: -58.593906116244945
-                    }
+                        usuario: "1",
+                        emision: new Date(),
+                        estado: AlertaEstado.EMITIDA,
+                        ubicacion: {
+                            latitud: -34.60026581256884,
+                            longitud: -58.593906116244945
+                        }
                     }
                 }
             }

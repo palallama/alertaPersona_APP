@@ -57,6 +57,14 @@ export class UsuarioService {
 
   // Gestiones
 
+  setNotificacionToken(usuario:string, token:string) {
+    const aux = {
+      id: usuario,
+      token: token
+    }
+    return this.http.post(`${this.URL_COMPLETA}/usuario/setNotificacionToken`, aux);
+  }
+
   iniciarSesion(mail:string, password:string) {
     return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`);
     // this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).subscribe({

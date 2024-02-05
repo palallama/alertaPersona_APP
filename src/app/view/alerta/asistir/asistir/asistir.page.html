@@ -26,8 +26,8 @@
       >
     </app-mapa>
 
-    <app-boton-general [routerLink]="'/post-asistir/'+alertaId" label="Asistir" style="margin: 30px 0 20px 0;"></app-boton-general>
-    <a routerLink="/home" >OMITIR</a>
+    <app-boton-general (botonClick)="accionAsistente('A')" label="Asistir" style="margin: 30px 0 20px 0;"></app-boton-general>
+    <a (click)="accionAsistente('R')" >OMITIR</a>
   </div>
 
   

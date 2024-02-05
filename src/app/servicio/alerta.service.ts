@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Alerta, AlertaEstado } from '../interfaz/alerta';
 import { environment } from 'src/environments/environment';
-import { map, tap } from 'rxjs';
+import { interval, map, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,18 @@ export class AlertaService {
 
   deleteAlerta(alertaId:any){
     return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`);
+  }
+
+  getAlertaPeriodica(alertaId:string, miliseg:number = 5000) {
+    return interval(miliseg).pipe(
+      switchMap(() => this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`))
+    )
+  }
+
+  // 
+
+  cerrarAlerta(alertaId:any, estado:string){
+    return this.http.post(`${this.URL_COMPLETA}/alerta/cierre`, { id: alertaId, estado: estado});
   }
 
   async getAlertaTest(id:string) : Promise<Alerta>{

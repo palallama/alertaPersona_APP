@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'AlertaPersona',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http'
   },
   plugins: {
     PushNotifications: {

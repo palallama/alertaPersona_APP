@@ -49,6 +49,7 @@ export class LoginPage implements ViewWillEnter, OnInit{
       this.usuarioService.iniciarSesion(this.usuario.value.mail!, this.usuario.value.password!).subscribe({
         next: (res:any) => {
           this.storageService.set(StorageKeys.TOKEN, res.data.token);
+          this.setTokenNotificacion();
           this.router.navigateByUrl("/");
         },
         error: (error:any) => {
@@ -56,6 +57,13 @@ export class LoginPage implements ViewWillEnter, OnInit{
         }
       })
 
+    }
+  }
+
+  private async setTokenNotificacion(){
+    const notiToken = await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION);
+    if (notiToken){
+      this.usuarioService.setNotificacionToken(await this.usuarioService.getUsuarioLoggeado(), notiToken).subscribe();
     }
   }
 
