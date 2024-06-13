@@ -58,6 +58,8 @@
               [required]="true" 
               style="width: 100%;" 
               [error]="(!(usuarioNuevo.get('nroTramite')?.valid!) && usuarioNuevo.get('nroTramite')?.touched!)"
+              errorTxt="Nro de tramite invalido"
+              [largoMaximo]="11"
             >
             </app-text-input>
           </ion-col>
@@ -65,17 +67,29 @@
         
         <ion-row>
           <ion-col size="6">
-            <app-text-input 
-              formControlName="genero" 
+            <!-- <app-text-input 
+              formControlName="genero"
               placeholder="Genero" 
-              label="Genero" 
+              label="Genero"
               [required]="true" 
               [mostrarAclaracion]="true" 
               aclaracion="(el que muestra el DNI)" 
               style="width: 100%;" 
               [error]="(!(usuarioNuevo.get('genero')?.valid!) && usuarioNuevo.get('genero')?.touched!)"
             >
-            </app-text-input>
+            </app-text-input> -->
+            <app-select-input
+              formControlName="genero"
+              placeholder="Genero"
+              label="Genero"
+              [mostrarAclaracion]="true"
+              aclaracion="(el que muestra el DNI)"
+              style="width: 100%;"
+              
+              [valores]="['Masculino', 'Femenino', 'X']"
+              
+            >
+            </app-select-input>
           </ion-col>
           <ion-col size="6">
             <app-text-input 

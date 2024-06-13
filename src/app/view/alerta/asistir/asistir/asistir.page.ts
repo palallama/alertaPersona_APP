@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Alerta, AlertaEstado } from 'src/app/interfaz/alerta';
 import { Marcador, Ubicacion } from 'src/app/interfaz/marcador';
 import { AlertaService } from 'src/app/servicio/alerta.service';
@@ -17,7 +18,8 @@ export class AsistirPage implements OnInit {
   private rutaActiva = inject(ActivatedRoute);
   private alertaService = inject(AlertaService);
   private usuarioService = inject(UsuarioService);
-  private asistenteService = inject(AsistenteService)
+  private asistenteService = inject(AsistenteService);
+  private alertController = inject(AlertController);
   private router = inject(Router);
   
   usuarioId: any;
@@ -64,8 +66,12 @@ export class AsistirPage implements OnInit {
   async buscarAlerta(id:any){
     this.alertaService.getAlerta(id).subscribe({
       next: (res:any) => {
-        console.log(res);
-        this.alerta = res
+        // console.log(res);
+        this.alerta = res;
+
+        if (this.alerta?.cerrada){
+          this.alertaCerrada();
+        }
       },
       error: (res:any) => {
         console.error(res)
@@ -83,6 +89,10 @@ export class AsistirPage implements OnInit {
   }
 
   async accionAsistente(accion:string) {
+    // si la alerta esta cerrada, expiro. no se puede asistir ni rechazar
+    if (this.alerta?.cerrada){
+      return
+    }
 
     const asistente = {
       alerta: this.alertaId,
@@ -104,6 +114,23 @@ export class AsistirPage implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  async alertaCerrada() {  
+    const alert = await this.alertController.create({
+      header: 'Alerta expirada',
+      // subHeader: 'A Sub Header Is Optional',
+      message: 'La Alerta a la que quiere acudir ah expirado.\nGracias por su ayuda',
+      buttons: [{
+        text: 'Aceptar',
+        role: 'confirm',
+        handler: () => {
+          this.router.navigateByUrl(`/home`)
+        },
+      }],
+    });
+
+    await alert.present();
   }
 
 }

@@ -29,6 +29,9 @@ export class PostAsistirPage implements OnInit, OnDestroy {
 
     alerta!: Alerta;
 
+    alertaSubs!:any;
+
+
     ruta: Ruta = {
         origen: {
             latitud: 0,
@@ -67,7 +70,8 @@ export class PostAsistirPage implements OnInit, OnDestroy {
 
     async buscarAlerta(id:any){
         let primerBusqueda = true;
-        this.alertaService.getAlertaPeriodica(id).subscribe({
+
+        this.alertaSubs = this.alertaService.getAlertaPeriodica(id).subscribe({
             next: (res:any) => {
                 this.alerta = res;
 
@@ -83,40 +87,13 @@ export class PostAsistirPage implements OnInit, OnDestroy {
             },
             error: (res:any) => {
                 console.error(res);
-            },
-            complete: () => {
-                console.log(this.alerta)
-                if(!this.alerta){
-                    this.alerta = {
-                        usuario: "1",
-                        emision: new Date(),
-                        estado: AlertaEstado.EMITIDA,
-                        ubicacion: {
-                            latitud: -34.60026581256884,
-                            longitud: -58.593906116244945
-                        }
-                    }
-                }
             }
         })
-    }
 
-    async buscarAlertaTest(id:any){
-        this.alerta = await this.alertaService.getAlertaTest(id);
-        if(!this.alerta){
-            this.alerta = {
-                usuario: "1",
-                emision: new Date(),
-                estado: AlertaEstado.EMITIDA,
-                ubicacion: {
-                latitud: -34.60026581256884,
-                longitud: -58.593906116244945
-                }
-            }
-        }
     }
 
     resuelto(){
+        this.alertaSubs.unsubscribe();
         this.router.navigateByUrl('/home');
     }
 

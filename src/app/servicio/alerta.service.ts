@@ -59,23 +59,23 @@ export class AlertaService {
   ]
   
   getAlerta(alertaId:any){
-    return this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`);
+    return this.http.get(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(map( (res:any) => {return res.data}));
   }
 
   getAlertas(){
-    return this.http.get(`${this.URL_COMPLETA}/alerta/`);
+    return this.http.get(`${this.URL_COMPLETA}/alerta/`).pipe(map( (res:any) => {return res.data}));
   }
 
   insertAlerta(alerta:any){
-    return this.http.post(`${this.URL_COMPLETA}/alerta/`, alerta);
+    return this.http.post(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(map( (res:any) => {return res.data}));
   }
 
   updateAlerta(alerta:any){
-    return this.http.patch(`${this.URL_COMPLETA}/alerta/`, alerta);
+    return this.http.patch(`${this.URL_COMPLETA}/alerta/`, alerta).pipe(map( (res:any) => {return res.data}));
   }
 
   deleteAlerta(alertaId:any){
-    return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`);
+    return this.http.delete(`${this.URL_COMPLETA}/alerta/${alertaId}`).pipe(map( (res:any) => {return res.data}));
   }
 
   getAlertaPeriodica(alertaId:string, miliseg:number = 5000) {
@@ -87,7 +87,7 @@ export class AlertaService {
   // 
 
   cerrarAlerta(alertaId:any, estado:string){
-    return this.http.post(`${this.URL_COMPLETA}/alerta/cierre`, { id: alertaId, estado: estado});
+    return this.http.post(`${this.URL_COMPLETA}/alerta/cierre`, { id: alertaId, estado: estado}).pipe(map( (res:any) => {return res.data}));
   }
 
   async getAlertaTest(id:string) : Promise<Alerta>{

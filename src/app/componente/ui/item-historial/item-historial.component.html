@@ -1,6 +1,10 @@
 <div class="item">
-  <p>{{alerta.id}}</p>
-  <p>{{alerta.emision | date:'shortDate' }}</p>
-  <p>{{alerta.estado}}</p>
-  <!-- <p>{{alerta.usuario}}</p> -->
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col><p>{{alerta.id}}</p></ion-col> -->
+      <ion-col><p>{{alerta.fechaEmision | date:'dd/MM/YYYY' }}</p></ion-col>
+      <ion-col><p>{{alerta.estado | estadoAlertas}}</p></ion-col>
+      <!-- <p>{{alerta.usuario}}</p> -->
+    </ion-row>
+  </ion-grid>
 </div>

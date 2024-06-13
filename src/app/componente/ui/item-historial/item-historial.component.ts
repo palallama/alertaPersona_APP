@@ -11,7 +11,7 @@ export class ItemHistorialComponent {
   @Input() alerta: Alerta = {
     id: "ale1",
     usuario: "julian@mail.com",
-    emision: new Date(2023, 8, 24),
+    fechaEmision: new Date(2023, 8, 24),
     estado: AlertaEstado.EMITIDA
   };
 

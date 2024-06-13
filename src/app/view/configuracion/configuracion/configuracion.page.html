@@ -13,9 +13,12 @@
 
     <div style="margin: 0 16px;">
       <div class="check_block">
-        <ion-checkbox>Activar Notificaciones</ion-checkbox>
+        
+        <div *ngFor="let p of preferencias">
+            <ion-checkbox [(ngModel)]="p.activo"  (ngModelChange)="actualizarPreferencia(p)">{{p.desc}}</ion-checkbox>
+        </div>
       </div>
-      <app-boton-general [routerLink]="['/recupero-password']" [queryParams]="{ origen: 'C' }" label="Cambiar Clave" style="width: 100%; margin: 8px 0;" ></app-boton-general>
+      <app-boton-general [routerLink]="['/cambiar-password']" [queryParams]="{ origen: 'C' }" label="Cambiar Clave" style="width: 100%; margin: 8px 0;" ></app-boton-general>
       <app-boton-general (botonClick)="cerrarSesion()" label="Cerrar Sesion" style="width: 100%; margin: 8px 0;" ></app-boton-general>
     </div>
 

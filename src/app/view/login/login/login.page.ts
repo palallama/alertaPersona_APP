@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { jwtDecode } from 'jwt-decode';
 import { StorageKeys } from 'src/app/interfaz/storage';
+import { NotificacionService } from 'src/app/servicio/notificacion.service';
 import { StorageService } from 'src/app/servicio/storage.service';
 import { UsuarioService } from 'src/app/servicio/usuario.service';
 
@@ -14,6 +15,7 @@ import { UsuarioService } from 'src/app/servicio/usuario.service';
 })
 export class LoginPage implements ViewWillEnter, OnInit{
 
+  private notificacionService = inject(NotificacionService);
   private usuarioService = inject(UsuarioService);
   private storageService = inject(StorageService);
   private router = inject(Router);
@@ -25,6 +27,7 @@ export class LoginPage implements ViewWillEnter, OnInit{
   ngOnInit(){
     this.resetForm()
     this.checkUsuario()
+    
   }
   ionViewWillEnter() {
     this.resetForm()
@@ -33,6 +36,7 @@ export class LoginPage implements ViewWillEnter, OnInit{
 
   resetForm(){
     this.usuario.reset({mail: "", password: ""})
+    this.storageService.remove(StorageKeys.TOKEN_NOTIFICACION);
   }
   async checkUsuario(){
     if ( await this.usuarioService.getUsuarioLoggeado() !== undefined ){
@@ -43,12 +47,9 @@ export class LoginPage implements ViewWillEnter, OnInit{
   async enter(){
 
     if (this.usuario.valid){
-      // console.log(this.usuario.value.mail);
-      // console.log(this.usuario.value.password);
-      
       this.usuarioService.iniciarSesion(this.usuario.value.mail!, this.usuario.value.password!).subscribe({
         next: (res:any) => {
-          this.storageService.set(StorageKeys.TOKEN, res.data.token);
+          this.storageService.set(StorageKeys.TOKEN, res.token);
           this.setTokenNotificacion();
           this.router.navigateByUrl("/");
         },
@@ -61,6 +62,7 @@ export class LoginPage implements ViewWillEnter, OnInit{
   }
 
   private async setTokenNotificacion(){
+    await this.notificacionService.iniciarNotificaciones();
     const notiToken = await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION);
     if (notiToken){
       this.usuarioService.setNotificacionToken(await this.usuarioService.getUsuarioLoggeado(), notiToken).subscribe();

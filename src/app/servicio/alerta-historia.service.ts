@@ -1,10 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Alerta, AlertaEstado } from '../interfaz/alerta';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertaHistoriaService {
+  private http = inject(HttpClient);
+
+  private API_BASEURL = environment.API_BASEURL;
+  private API_PORT = environment.API_PORT;
+  private API_VERSION = environment.API_VERSION;
+  private URL_COMPLETA = (this.API_PORT!='') ? `${this.API_BASEURL}:${this.API_PORT}/${this.API_VERSION}` : `${this.API_BASEURL}/${this.API_VERSION}`;
 
   emitidas : Alerta[] = [
     {
@@ -48,25 +57,8 @@ export class AlertaHistoriaService {
     }
   ]
 
-
-  getHistorialEmitidas(usuario:string) : Alerta[] {
-    let aux: Alerta[] = [];
-    this.emitidas.map( (e) => {
-      if (e.usuario == usuario){
-        aux.push(e);
-      }
-    });
-    return aux;
-  }
-
-  getHistorialAsistidas(usuario:string) : Alerta[] {
-    let aux: Alerta[] = [];
-    this.asistidas.map( (e) => {
-      if (e.usuario == usuario){
-        aux.push(e);
-      }
-    });
-    return aux;
+  getHistorialUsuario(usuario:string) {
+    return this.http.get(`${this.URL_COMPLETA}/usuario/${usuario}/historial`).pipe(map( (res:any) => {return res.data}));
   }
 
 }

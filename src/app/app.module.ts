@@ -8,9 +8,14 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { EstadoAlertasPipe } from './pipes/estado-alertas.pipe';
+import { DniPipe } from './pipes/dni.pipe';
+import { NroTramitePipe } from './pipes/nro-tramite.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

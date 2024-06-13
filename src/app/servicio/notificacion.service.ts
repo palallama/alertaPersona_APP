@@ -9,6 +9,8 @@ import {
 } from '@capacitor/push-notifications';
 import { StorageService } from './storage.service';
 import { StorageKeys } from '../interfaz/storage';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,13 @@ import { StorageKeys } from '../interfaz/storage';
 
 export class NotificacionService {
   private route = inject(Router);
+  private http = inject(HttpClient);
   private storageService = inject(StorageService);
 
 
-  iniciarNotificaciones() {
+  async iniciarNotificaciones() {
     if (Capacitor.getPlatform() !== "web"){
-      this.registerPush();
+      await this.registerPush();
     }
   }
 
@@ -32,10 +35,10 @@ export class NotificacionService {
 
       
       let permisoNotificacion = await PushNotifications.checkPermissions();
-      console.log(permisoNotificacion.receive)
+      // console.log(permisoNotificacion.receive)
       
       permisoNotificacion = await PushNotifications.requestPermissions();
-      console.log(permisoNotificacion.receive)
+      // console.log(permisoNotificacion.receive)
 
       if (permisoNotificacion.receive === 'prompt') {
         permisoNotificacion = await PushNotifications.requestPermissions();
@@ -45,7 +48,6 @@ export class NotificacionService {
       }
 
       console.log("notificacion token: ", await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION));
-      console.log("notificacion token: ", (await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION)) === null);
 
       if ((await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION)) === null){
         await PushNotifications.register();
@@ -65,13 +67,13 @@ export class NotificacionService {
     });
   
     await PushNotifications.addListener('registrationError', err => {
-      // console.error('Registration error: ', err.error);
-      // alert('Registration error: ' + JSON.stringify(err));
+      console.error('Registration error: ', err.error);
+      alert('Registration error: ' + JSON.stringify(err));
     });
   
     await PushNotifications.addListener('pushNotificationReceived', notification => {
-      // console.log('Push notification received: ', notification);
-      // alert('Registration error: ' + JSON.stringify(notification));
+      console.log('Push notification received: ', notification);
+      alert('Registration error: ' + JSON.stringify(notification));
     });
   
     await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
@@ -84,6 +86,46 @@ export class NotificacionService {
       }
 
     });
+  }
+
+  private urlBase64ToUint8Array(base64String:any) {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+  
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
+  private async registrarPropio(){
+    const PUBLIC_VAPID_KEY = "BP4T2BYRmC6D6Y1a7kvp-DpwIHXXOr1Bly3up35UGGW4b9CrVbn1AXg2AqDt3-eDcypWUHzbkrz0csAVtzykUmM";
+    // Service Worker
+    console.log("Registering a Service worker");
+    const register = await navigator.serviceWorker.register("./worker.js", {
+      scope: "/frontend/"
+    });
+    console.log("New Service Worker");
+
+    // Listen Push Notifications
+    console.log("Listening Push Notifications");
+    const subscription = await register.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: this.urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+    });
+
+    this.http.post(`http://localhost:4800/new-message`, JSON.stringify(subscription) ).pipe(tap( (res:any) => {console.log(res)})).subscribe({
+      next: (res:any) => {
+        console.log(res);
+      },
+      error: (err:any) => {
+        console.log(err);
+      }
+    })
+
   }
 
 

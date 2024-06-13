@@ -10,6 +10,7 @@ export class AppComponent implements OnInit{
   private notificacionService = inject(NotificacionService);
 
   ngOnInit(): void {
+    console.log("appcomponent - iniciarNotificaciones")
     this.notificacionService.iniciarNotificaciones();
   }
 }

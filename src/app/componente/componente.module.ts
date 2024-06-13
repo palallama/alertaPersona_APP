@@ -10,6 +10,7 @@ import { PasswordInputComponent } from './input/password-input/password-input.co
 import { SelectInputComponent } from './input/select-input/select-input.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ItemHistorialComponent } from './ui/item-historial/item-historial.component';
+import { EstadoAlertasPipe } from '../pipes/estado-alertas.pipe';
 
 
 
@@ -18,7 +19,8 @@ import { ItemHistorialComponent } from './ui/item-historial/item-historial.compo
     CommonModule,
     FormsModule,
     IonicModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    EstadoAlertasPipe
   ],
   declarations: [
     FooterComponent,

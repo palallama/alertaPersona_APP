@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,22 +15,22 @@ export class AsistenteService {
   private URL_COMPLETA = `${this.API_BASEURL}:${this.API_PORT}/${this.API_VERSION}`;
   
   getAsistente(asistenteId:any){
-    return this.http.get(`${this.URL_COMPLETA}/asistente/${asistenteId}`);
+    return this.http.get(`${this.URL_COMPLETA}/asistente/${asistenteId}`).pipe(map( (res:any) => {return res.data}));
   }
 
   getAsistentes(){
-    return this.http.get(`${this.URL_COMPLETA}/asistente/`);
+    return this.http.get(`${this.URL_COMPLETA}/asistente/`).pipe(map( (res:any) => {return res.data}));
   }
 
   insertAsistente(asistente:any){
-    return this.http.post(`${this.URL_COMPLETA}/asistente/`, asistente);
+    return this.http.post(`${this.URL_COMPLETA}/asistente/`, asistente).pipe(map( (res:any) => {return res.data}));
   }
 
   updateAsistente(asistente:any){
-    return this.http.patch(`${this.URL_COMPLETA}/asistente/`, asistente);
+    return this.http.patch(`${this.URL_COMPLETA}/asistente/`, asistente).pipe(map( (res:any) => {return res.data}));
   }
 
   deleteAsistente(asistenteId:any){
-    return this.http.delete(`${this.URL_COMPLETA}/asistente/${asistenteId}`);
+    return this.http.delete(`${this.URL_COMPLETA}/asistente/${asistenteId}`).pipe(map( (res:any) => {return res.data}));
   }
 }

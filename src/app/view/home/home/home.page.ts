@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TimerService } from 'src/app/servicio/timer.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +8,6 @@ import { TimerService } from 'src/app/servicio/timer.service';
 })
 export class HomePage {
   private router = inject(Router);
-  private timer = inject(TimerService);
 
   asistirAlerta() {
     let alertaRandom:number = 11 + (Math.floor(Math.random() * 6));

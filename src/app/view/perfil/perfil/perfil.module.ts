@@ -8,6 +8,7 @@ import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
 import { ComponenteModule } from 'src/app/componente/componente.module';
+import { DniPipe } from 'src/app/pipes/dni.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponenteModule } from 'src/app/componente/componente.module';
     FormsModule,
     IonicModule,
     PerfilPageRoutingModule,
-    ComponenteModule
+    ComponenteModule,
+    DniPipe
   ],
   declarations: [PerfilPage]
 })

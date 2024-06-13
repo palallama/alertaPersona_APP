@@ -9,27 +9,31 @@
 
 <ion-content [fullscreen]="true" >
 
-  <div *ngIf="usuario">
+  <div *ngIf="usuario" style="margin: 0 16px;">
     <div class="c-flex">
       <ion-img class="imagenLogo" src="./assets/icons/userBox.svg" alt="user icon"></ion-img>
   
       <h2>{{usuario.nombre}} {{usuario.apellido}}</h2>
     </div>
     <div class="dataUsuario">
-        <table>
-          <tr>
-            <td class="tituloTable">Email:</td>
-            <td class="attTable">{{usuario.mail}}</td>
-          </tr>
-          <tr>
-            <td class="tituloTable">Telefono:</td>
-            <td class="attTable">{{usuario.telefono}}</td>
-          </tr>
-          <tr>
-            <td class="tituloTable">DNI:</td>
-            <td class="attTable">{{usuario.dni}}</td>
-          </tr>
-        </table>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="tituloTable">Email:</ion-col>
+          <ion-col class="attTable">{{usuario.mail}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="tituloTable">Telefono:</ion-col>
+          <ion-col class="attTable">{{usuario.telefono}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="tituloTable">DNI:</ion-col>
+          <ion-col class="attTable">{{usuario.dni | dni}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="tituloTable">Nro Tramite:</ion-col>
+          <ion-col class="attTable">{{usuario.nroTramite}}</ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </div>
 

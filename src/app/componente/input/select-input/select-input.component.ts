@@ -1,10 +1,17 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, forwardRef, inject } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-select-input',
   templateUrl: './select-input.component.html',
   styleUrls: ['./select-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectInputComponent),
+      multi: true,
+    },
+  ],
 })
 export class SelectInputComponent implements ControlValueAccessor, AfterViewInit {
   private renderer = inject(Renderer2);

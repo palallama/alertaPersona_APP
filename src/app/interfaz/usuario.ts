@@ -13,3 +13,24 @@ export interface Usuario {
     genero?: string;
     fchNacimiento?: Date;
 }
+
+export enum UsuarioPreferencias {
+}
+
+export interface UsuarioPreferencia {
+    clave: string,
+    desc?: string,
+    activo?: boolean
+}
+
+export enum PreferenciasClave {
+    NOTIFICACION = "NOTIFICACION"
+}
+
+export const PreferenciasData: UsuarioPreferencia[] = [
+    {
+        clave: PreferenciasClave.NOTIFICACION,
+        desc: 'Activar Notificaciones',
+        activo: false
+    }
+]

@@ -31,8 +31,10 @@ export class RegistroPage {
   registro() {
     console.log(this.usuarioNuevo);
     console.log(this.usuarioNuevo.valid);
-    console.log(this.usuarioNuevo.value.password);
-    console.log(this.usuarioNuevo.value.passwordRepetida);
+
+    console.log(this.usuarioNuevo.value.genero)
+    // console.log(this.usuarioNuevo.value.genero)
+
     if (this.usuarioNuevo.valid && (this.usuarioNuevo.value.password === this.usuarioNuevo.value.passwordRepetida)){
       console.log(" *** Registrado");
 

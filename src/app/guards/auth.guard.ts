@@ -9,9 +9,7 @@ import { UsuarioService } from '../servicio/usuario.service';
 export class AuthGuard implements CanActivate {
   private usuarioService = inject(UsuarioService);
   private router = inject(Router);
-  async canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Promise<boolean> {
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 
     if (!(await this.usuarioService.getUsuarioLoggeado())){
       this.router.navigate(['login']);

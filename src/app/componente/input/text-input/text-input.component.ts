@@ -23,6 +23,8 @@ export class TextInputComponent implements ControlValueAccessor, AfterViewInit {
   @Input() readOnly: boolean = false;
   @Input() disabled: boolean = false;
   
+  @Input() largoMaximo!: number;
+
   @Input() required: boolean = false;
   @Input() label: string = "Label";
   @Input() mostarLabel: boolean = true;

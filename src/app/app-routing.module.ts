@@ -58,7 +58,11 @@ const routes: Routes = [
     path: 'asistir/:alerta',
     loadChildren: () => import('./view/alerta/asistir/asistir/asistir.module').then( m => m.AsistirPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'cambiar-password',
+    loadChildren: () => import('./view/login/cambiar-password/cambiar-password.module').then( m => m.CambiarPasswordPageModule)
   },
+
 
 
 ];

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Usuario } from '../interfaz/usuario';
+import { Usuario, UsuarioPreferencia, UsuarioPreferencias } from '../interfaz/usuario';
 import { StorageService } from './storage.service';
 import { jwtDecode } from 'jwt-decode';
 import { StorageKeys } from '../interfaz/storage';
@@ -18,7 +18,7 @@ export class UsuarioService {
   private API_BASEURL = environment.API_BASEURL;
   private API_PORT = environment.API_PORT;
   private API_VERSION = environment.API_VERSION;
-  private URL_COMPLETA = `${this.API_BASEURL}:${this.API_PORT}/${this.API_VERSION}`;
+  private URL_COMPLETA = (this.API_PORT!='') ? `${this.API_BASEURL}:${this.API_PORT}/${this.API_VERSION}` : `${this.API_BASEURL}/${this.API_VERSION}`;
 
   credenciales = [
     {
@@ -36,50 +36,37 @@ export class UsuarioService {
   ]
 
   getUsuario(usuarioId:string){
-    return this.http.get(`${this.URL_COMPLETA}/usuario/${usuarioId}`);
+    return this.http.get(`${this.URL_COMPLETA}/usuario/${usuarioId}`).pipe(map( (res:any) => {return res.data}));
   }
 
   getUsuarios(){
-    return this.http.get(`${this.URL_COMPLETA}/usuario/`);
+    return this.http.get(`${this.URL_COMPLETA}/usuario/`).pipe(map( (res:any) => {return res.data}));
   }
 
   insertUsuario(usuario:Usuario){
-    return this.http.post(`${this.URL_COMPLETA}/usuario/`, usuario);
+    return this.http.post(`${this.URL_COMPLETA}/usuario/`, usuario).pipe(map( (res:any) => {return res.data}));
   }
 
   updateUsuario(usuario:Usuario){
-    return this.http.patch(`${this.URL_COMPLETA}/usuario/${usuario.id}`, usuario);
+    return this.http.patch(`${this.URL_COMPLETA}/usuario/${usuario.id}`, usuario).pipe(map( (res:any) => {return res.data}));
   }
 
   deleteUsuario(usuarioId:string){
-    return this.http.delete(`${this.URL_COMPLETA}/usuario/${usuarioId}`);
+    return this.http.delete(`${this.URL_COMPLETA}/usuario/${usuarioId}`).pipe(map( (res:any) => {return res.data}));
   }
 
   // Gestiones
 
-  setNotificacionToken(usuario:string, token:string) {
+  setNotificacionToken(usuarioId:string, token:string) {
     const aux = {
-      id: usuario,
+      id: usuarioId,
       token: token
     }
-    return this.http.post(`${this.URL_COMPLETA}/usuario/setNotificacionToken`, aux);
+    return this.http.post(`${this.URL_COMPLETA}/usuario/${usuarioId}/setNotificacionToken`, aux).pipe(map( (res:any) => {return res.data}));
   }
 
   iniciarSesion(mail:string, password:string) {
-    return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`);
-    // this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).subscribe({
-    //   next: (res:any) => {
-    //     console.log(res);
-    //     let aux = jwtDecode(res.data.token) as any;
-    //     this.storageService.set(StorageKeys.TOKEN, res.data.token);
-    //     this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
-    //     return true;
-    //   },
-    //   error: (err:any) => {
-    //     console.log(err)
-    //     return false;
-    //   }
-    // })
+    return this.http.post(`${this.URL_COMPLETA}/usuario/iniciarsesion`, { mail: mail, password:password }).pipe(map( (res:any) => {return res.data}));
   }
 
   cerrarSesion() {
@@ -90,40 +77,28 @@ export class UsuarioService {
     let token = await this.storageService.get(StorageKeys.TOKEN);
     if (token){
       let aux = jwtDecode(token) as any;
-      return aux.id;
+      return aux.usuarioId;
     }
     return undefined;
   }
 
-  async validarUsuario() {
 
+  cambiarCotrasena(usuarioId:string, password:string, mail:string) {
+    return this.http.patch(`${this.URL_COMPLETA}/usuario/${usuarioId}/cambiarContrasena?mail=${mail}`, { id: usuarioId, password:password, mail: mail }).pipe(map( (res:any) => {return res.data}));
+  }
+  getUsuarioPreferencias(usuarioId: string){
+    return this.http.get(`${this.URL_COMPLETA}/usuario/${usuarioId}/preferencias`).pipe(map( (res:any) => res.data ));
+  }
+  setDelUsuarioPreferencias(usuarioId: string, preferencia: UsuarioPreferencia){
+    return this.http.get(`${this.URL_COMPLETA}/usuario/${usuarioId}/preferencias/${preferencia.clave}`).pipe(map( (res:any) => res.data ));
+  }
+  forgotPassword(mail:string) {
+    mail = mail.replace('@', "%40");
+    return this.http.get(`${this.URL_COMPLETA}/usuario/forgotPassword?mail=${mail}`).pipe(map( (res:any) => {return res.data}));
+  }
+  verificarCodigoPassword(mail:string, code:string) {
+    mail = mail.replace('@', "%40");
+    return this.http.post(`${this.URL_COMPLETA}/usuario/forgotPassword/verifyCode`, { mail: mail, code:code }).pipe(map( (res:any) => {return res.data}));
   }
 
-
-
-
-  // iniciarSesion(mail:string, password:string) {
-  //   return this.http.get(`${this.URL_COMPLETA}/usuario/iniciarsesion?mail=${mail}&password=${password}`).pipe(
-  //     map( (res:any) => {
-  //       if (res.error){
-  //         console.error(res.error)
-  //       }else{
-  //         let aux = jwtDecode(res.data.token) as any;
-  //         this.storageService.set(StorageKeys.TOKEN, res.data.token);
-  //         this.storageService.set(StorageKeys.USUARIO_ID, aux.id);
-  //         return res.data.token;
-  //       }
-  //     } )
-  //   );
-  // }
-
-  // iniciarSesion(usuario:string, password:string) {
-  //   let existe = false;
-  //   this.credenciales.map( (crd) => {
-  //     if (crd.usuario === usuario && crd.password === password) {
-  //       existe = true;
-  //     }
-  //   })
-  //   return existe;
-  // }
 }
