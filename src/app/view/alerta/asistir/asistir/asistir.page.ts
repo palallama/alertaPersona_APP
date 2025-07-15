@@ -38,7 +38,7 @@ export class AsistirPage implements OnInit {
   marcadores: Marcador[] = [];
 
   async ngOnInit() {
-    this.usuarioId = await this.usuarioService.getUsuarioLoggeado();
+    this.usuarioId = (await this.usuarioService.getUsuarioLoggeado())!.id;
     this.alertaId = this.rutaActiva.snapshot.params['alerta'];
     // console.log(this.alertaId); 
 
@@ -95,11 +95,13 @@ export class AsistirPage implements OnInit {
     }
 
     const asistente = {
-      alerta: this.alertaId,
-      usuario: this.usuarioId,
+      alertaId: Number(this.alertaId),
+      usuarioId: Number(this.usuarioId),
       estado: accion,
-      observaciones: ""
+      observacion: ""
     }
+
+    console.log(asistente);
 
     this.asistenteService.insertAsistente(asistente).subscribe({
       next: (res: any) => {

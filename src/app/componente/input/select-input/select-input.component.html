@@ -1,4 +1,27 @@
-<div class="contenedor">
+<div class="form-group">
+  <!-- <label *ngIf="label" [class.required]="required">{{ label }}</label> -->
+  <label *ngIf="label" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span><span class="aclaracion" *ngIf="mostrarAclaracion">{{aclaracion}}</span></label>
+  
+  <select 
+    class="form-control"
+    [ngClass]="{ 'is-invalid': showError }"
+    [(ngModel)]="selectedValue"
+    (ngModelChange)="onValueChange($event)"
+    (blur)="onBlur()"
+    [disabled]="disabled"
+    [required]="required"
+  >
+    <option [ngValue]="null" disabled>{{ placeholder }}</option>
+    <option *ngFor="let option of options" [ngValue]="getOptionValue(option)">
+      {{ getOptionLabel(option) }}
+    </option>
+  </select>
+  <div *ngIf="showError" class="invalid-feedback">
+    {{ errorMessage }}
+  </div>
+</div>
+
+<!-- <div class="contenedor">
   <label *ngIf="mostarLabel" for="input">{{label}}<span *ngIf="required" class="requerido">  *</span><span class="aclaracion" *ngIf="mostrarAclaracion">{{aclaracion}}</span></label>
   
   <div class="input">
@@ -12,18 +35,15 @@
       [required]="required"
 
       [style]="style"
+      
 
       >
 
       <option disabled selected>{{placeholder}}</option>
       <option [value]="item" *ngFor="let item of valores">{{item}}</option>
-
-      <!-- <option value="value1">Value 1</option>
-      <option value="value2" selected>Value 2</option>
-      <option value="value3">Value 3</option> -->
     </select>
   </div>
-</div>
+</div> -->
 
 <!-- 
 <input #input

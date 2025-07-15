@@ -28,3 +28,19 @@
 .footer-md {
     box-shadow: none !important;
 }
+
+/* Asegura que el modal se muestre correctamente */
+.custom-alert-modal {
+  --width: fit-content;
+  --min-width: 280px;
+  --height: fit-content;
+  --border-radius: 12px;
+  padding: 0px 5vh;
+  text-align: center;
+  
+  .ion-page {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+}

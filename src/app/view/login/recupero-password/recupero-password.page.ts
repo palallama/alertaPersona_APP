@@ -62,6 +62,7 @@ export class RecuperoPasswordPage implements OnInit{
         this.codigoErroneo();
       },
       complete: () => {
+        this.storageService.set(StorageKeys.CODIGO_RECUPERO, codigo);
         this.storageService.set(StorageKeys.MAIL_RECUPERO, this.mail);
         this.router.navigateByUrl("/cambiar-password");
       },

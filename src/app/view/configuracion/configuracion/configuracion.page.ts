@@ -20,22 +20,21 @@ export class ConfiguracionPage implements OnInit {
   usuarioPreferencias!: UsuarioPreferencia[];
   preferencias: UsuarioPreferencia[] = PreferenciasData;
 
-  usuarioId!:any;
+  usuario!:any;
 
   async ngOnInit() {
-    this.usuarioId = await this.usuarioService.getUsuarioLoggeado();
+    this.usuario = await this.usuarioService.getUsuarioLoggeado();
     this.identificarUsuario();
     this.cambioOk = this.router.parseUrl(this.router.url).queryParams['data'];
-    // console.log(this.cambioOk);
   }
 
   
   async identificarUsuario(){
-    this.usuarioService.getUsuarioPreferencias(this.usuarioId).subscribe({
+    this.usuarioService.getUsuarioPreferencias(this.usuario.id).subscribe({
       next: (res:any) => {
         this.preferencias.map( (p) => {
           res.map( (r:any) => {
-            if (p.clave === r){
+            if (p.clave === r.clave){
               p.activo = true;
             }
           })
@@ -45,7 +44,7 @@ export class ConfiguracionPage implements OnInit {
   }
 
   actualizarPreferencia(preferencia:UsuarioPreferencia) {
-    this.usuarioService.setDelUsuarioPreferencias(this.usuarioId, preferencia).subscribe({
+    this.usuarioService.setDelUsuarioPreferencias(this.usuario.id, preferencia).subscribe({
       error: (err:any) => {
         console.log(err);
       }

@@ -1,0 +1,20 @@
+<div class="custom-alert-backdrop" (click)="handleBackdropClick($event)">
+  <div class="custom-alert-container" [class]="cssClass" (click)="$event.stopPropagation()">
+    <div class="custom-alert-header" *ngIf="title">
+      <h2>{{ title }}</h2>
+    </div>
+    
+    <div class="custom-alert-content" *ngIf="message">
+      <p>{{ message }}</p>
+    </div>
+    
+    <div class="custom-alert-buttons">
+      <ion-button 
+        *ngFor="let button of buttons" 
+        (click)="onButtonClick(button)"
+        [class]="button.cssClass || ''">
+        {{ button.text }}
+      </ion-button>
+    </div>
+  </div>
+</div>

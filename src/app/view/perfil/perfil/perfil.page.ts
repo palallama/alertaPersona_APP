@@ -15,7 +15,7 @@ export class PerfilPage implements OnInit {
 
     let usuLg = await this.usuarioService.getUsuarioLoggeado();
     if(usuLg){
-      this.usuarioService.getUsuario(usuLg).subscribe({
+      this.usuarioService.getUsuario(usuLg.id).subscribe({
         next: (res:any) => {
           console.log(res);
           this.usuario = res;

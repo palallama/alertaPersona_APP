@@ -2,7 +2,7 @@ export interface Usuario {
     id?: string;
     nombre: string;
     apellido: string;
-    dni: number;
+    nroDocumento: number;
     telefono: string;
     nroTramite: number;
     mail: string;
@@ -12,6 +12,14 @@ export interface Usuario {
 
     genero?: string;
     fchNacimiento?: Date;
+
+    token?: string;
+}
+
+export interface UsuarioLogueado {
+    id: string;
+    nombnre: string;
+    mail: string;
 }
 
 export enum UsuarioPreferencias {

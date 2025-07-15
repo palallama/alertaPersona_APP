@@ -13,7 +13,10 @@
         [value]="defaultValue"
         [type]="inputType"
 
-        [attr.maxlength]="largoMaximo"
+        
+        oninput="javascript: if (this.maxLength > 0) { if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); }"
+        [maxLength]="(largoMaximo)"
+        
 
         [placeholder]="placeholder"
         [readOnly]="readOnly"
@@ -30,5 +33,11 @@
         />
     </div>
   </div>
-  <p class="errorTxt">{{ (error) ? errorTxt : ''}}</p>
+  <div *ngIf="error" class="invalid-feedback">
+    {{ errorTxt }}
+  </div>
 </div>
+
+
+<!--
+-->

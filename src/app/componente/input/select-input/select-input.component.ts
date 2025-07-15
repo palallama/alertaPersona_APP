@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, forwardRef, inject } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild, forwardRef, inject } from '@angular/core';
+import { SelectControlValueAccessor , NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-select-input',
@@ -9,62 +9,66 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SelectInputComponent),
-      multi: true,
-    },
-  ],
-})
-export class SelectInputComponent implements ControlValueAccessor, AfterViewInit {
-  private renderer = inject(Renderer2);
-
-  onChange!: (value?: any) => void;
-  onTouch!: (event: any) => void;
-  @Input() disabled: boolean = false;
-  @Input() placeholder = '';
-  
-  @Input() required: boolean = false;
-  @Input() label: string = "Label";
-  @Input() mostarLabel: boolean = true;
-  @Input() aclaracion: string = "";
-  @Input() mostrarAclaracion: boolean = false;
-  
-  @Input() style: string = "";
-  @Input() icono: string = "";
-  
-  @Input() valores!: string[];
-
-  value: string = '';
-
-  @ViewChild('input', {static: false}) input!: ElementRef;
-
-  ngAfterViewInit(): void {
-    if (this.icono !== ""){
-      this.renderer.setStyle(this.input.nativeElement, 'padding-left', '35px');
+      multi: true
     }
+  ]
+})
+export class SelectInputComponent implements ControlValueAccessor {
+  @Input() selectedValue: any = null;
+  @Output() selectedValueChange = new EventEmitter<any>(); // Necesario para two-way binding
+  
+  @Input() options: any[] = [];
+  @Input() optionValueField: string = 'value';
+  @Input() optionLabelField: string = 'label';
+  @Input() disabled: boolean = false;
+  @Input() required: boolean = false;
+  @Input() label: string = '';
+  @Input() mostrarAclaracion: boolean = false;
+  @Input() aclaracion: string = '';
+  @Input() placeholder: string = 'Seleccione una opción';
+  @Input() errorMessage: string = 'Este campo es requerido';
+  @Input() showError: boolean = false;
+  
+  @Output() change = new EventEmitter<any>();
+  @Output() blur = new EventEmitter<void>();
+  
+  private onChange = (value: any) => {};
+  private onTouched = () => {};
+
+  writeValue(value: any): void {
+    this.selectedValue = value;
   }
 
-  writeValue(value: any) {
-    this.value = value;
-  }
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
-    this.onTouch = fn;
+    this.onTouched = fn;
   }
-  setDisableState(status: boolean) {
-    this.disabled = status;
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
-  onInput(event: any) {
-    if(this.onChange) {
-      this.onChange(event.value);
-    }
+
+  onValueChange(value: any): void {
+    this.selectedValue = value;
+    this.onChange(value);
+    this.onTouched();
+    this.change.emit(value);
+    this.selectedValueChange.emit(value); // Emitir el cambio para two-way binding
   }
-  onTouched(value: any) {
-    if(this.onTouch) {
-      this.onTouch(value)
-    }
+
+  onBlur(): void {
+    this.onTouched();
+    this.blur.emit();
   }
-  onFocus() {
-    this.input.nativeElement.focus();
+
+  getOptionValue(option: any): any {
+    return option[this.optionValueField];
+  }
+
+  getOptionLabel(option: any): string {
+    return option[this.optionLabelField];
   }
 }

@@ -49,7 +49,7 @@ export class PostEmitirPage implements OnInit{
   marcadores: Marcador[] = [];
 
   async ngOnInit() {
-    this.usuarioId = await this.usuarioService.getUsuarioLoggeado();
+    this.usuarioId = (await this.usuarioService.getUsuarioLoggeado())!.id;
 
     await this.setLocalizacion();
     this.marcadores.push(this.emisor);
@@ -82,11 +82,9 @@ export class PostEmitirPage implements OnInit{
   emitirAlerta(){
 
     let alerta = {
-      usuario: this.usuarioId!,
-      ubicacion: {
-        latitud: this.center.latitud.toString(),
-        longitud: this.center.longitud.toString()
-      }
+      usuarioId: this.usuarioId!,
+      latitud: this.center.latitud,
+      longitud: this.center.longitud
     }
 
     console.log(alerta);

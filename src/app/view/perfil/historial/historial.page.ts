@@ -18,7 +18,7 @@ export class HistorialPage implements OnInit {
   alertasAsistidas!: Alerta[];
 
   async ngOnInit() {
-    this.usuario = await this.usuarioService.getUsuarioLoggeado();
+    this.usuario = (await this.usuarioService.getUsuarioLoggeado())!.id;
     this.getHistory();
   }
 

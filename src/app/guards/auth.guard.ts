@@ -11,7 +11,8 @@ export class AuthGuard implements CanActivate {
   private router = inject(Router);
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 
-    if (!(await this.usuarioService.getUsuarioLoggeado())){
+    const usr = await this.usuarioService.getUsuarioLoggeado();
+    if (!usr) {
       this.router.navigate(['login']);
       return false;
     }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 import { jwtDecode } from 'jwt-decode';
+import { AlertaService } from 'src/app/componente/alerta/alerta.service';
 import { StorageKeys } from 'src/app/interfaz/storage';
 import { NotificacionService } from 'src/app/servicio/notificacion.service';
 import { StorageService } from 'src/app/servicio/storage.service';
@@ -49,7 +50,8 @@ export class LoginPage implements ViewWillEnter, OnInit{
     if (this.usuario.valid){
       this.usuarioService.iniciarSesion(this.usuario.value.mail!, this.usuario.value.password!).subscribe({
         next: (res:any) => {
-          this.storageService.set(StorageKeys.TOKEN, res.token);
+          this.storageService.set(StorageKeys.TOKEN, res.access_token);
+          // this.storageService.set(StorageKeys.TOKEN, "test");
           this.setTokenNotificacion();
           this.router.navigateByUrl("/");
         },
@@ -65,9 +67,13 @@ export class LoginPage implements ViewWillEnter, OnInit{
     await this.notificacionService.iniciarNotificaciones();
     const notiToken = await this.storageService.get(StorageKeys.TOKEN_NOTIFICACION);
     if (notiToken){
-      this.usuarioService.setNotificacionToken(await this.usuarioService.getUsuarioLoggeado(), notiToken).subscribe();
+      let usr = await this.usuarioService.getUsuarioLoggeado();
+      console.log("setNotificacionToken", usr, notiToken)
+      this.usuarioService.setNotificacionToken(usr!.id, notiToken).subscribe();
     }
   }
+
+  
 
 
 

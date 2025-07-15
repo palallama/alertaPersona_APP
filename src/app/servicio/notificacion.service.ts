@@ -101,32 +101,4 @@ export class NotificacionService {
     return outputArray;
   }
 
-  private async registrarPropio(){
-    const PUBLIC_VAPID_KEY = "BP4T2BYRmC6D6Y1a7kvp-DpwIHXXOr1Bly3up35UGGW4b9CrVbn1AXg2AqDt3-eDcypWUHzbkrz0csAVtzykUmM";
-    // Service Worker
-    console.log("Registering a Service worker");
-    const register = await navigator.serviceWorker.register("./worker.js", {
-      scope: "/frontend/"
-    });
-    console.log("New Service Worker");
-
-    // Listen Push Notifications
-    console.log("Listening Push Notifications");
-    const subscription = await register.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: this.urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
-    });
-
-    this.http.post(`http://localhost:4800/new-message`, JSON.stringify(subscription) ).pipe(tap( (res:any) => {console.log(res)})).subscribe({
-      next: (res:any) => {
-        console.log(res);
-      },
-      error: (err:any) => {
-        console.log(err);
-      }
-    })
-
-  }
-
-
 }

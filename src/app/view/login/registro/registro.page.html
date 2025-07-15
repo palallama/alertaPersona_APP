@@ -39,13 +39,15 @@
         <ion-row>
           <ion-col size="6">
             <app-text-input 
-              formControlName="dni" 
+              formControlName="nroDocumento" 
               inputType="number" 
               placeholder="DNI" 
               label="Nro Documento" 
               [required]="true" 
               style="width: 100%;"
-              [error]="(!(usuarioNuevo.get('dni')?.valid!) && usuarioNuevo.get('dni')?.touched!)"
+              [error]="(!(usuarioNuevo.get('nroDocumento')?.valid!) && usuarioNuevo.get('nroDocumento')?.touched!)"
+              errorTxt="Documetno invalido"
+              [largoMaximo]="8"
             >
             </app-text-input>
           </ion-col>
@@ -78,7 +80,7 @@
               [error]="(!(usuarioNuevo.get('genero')?.valid!) && usuarioNuevo.get('genero')?.touched!)"
             >
             </app-text-input> -->
-            <app-select-input
+            <!-- <app-select-input
               formControlName="genero"
               placeholder="Genero"
               label="Genero"
@@ -89,6 +91,18 @@
               [valores]="['Masculino', 'Femenino', 'X']"
               
             >
+            </app-select-input> -->
+            <app-select-input
+              formControlName="genero"
+              [options]="generos"
+              optionValueField="id"
+              optionLabelField="nombre"
+              label="Género"
+              placeholder="Seleccione su género"
+              [required]="true"
+              [showError]="usuarioNuevo.get('genero')!.invalid && 
+                          (usuarioNuevo.get('genero')!.dirty || usuarioNuevo.get('genero')!.touched)"
+              errorMessage="Debe seleccionar un género">
             </app-select-input>
           </ion-col>
           <ion-col size="6">
@@ -115,6 +129,7 @@
               [required]="true" 
               style="width: 100%;" 
               [error]="(!(usuarioNuevo.get('telefono')?.valid!) && usuarioNuevo.get('telefono')?.touched!)"
+              [largoMaximo]="10"
             >
             </app-text-input>
           </ion-col>

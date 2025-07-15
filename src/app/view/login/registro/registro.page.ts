@@ -18,7 +18,7 @@ export class RegistroPage {
   usuarioNuevo = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     apellido: new FormControl('', [Validators.required]),
-    dni: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+    nroDocumento: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
     nroTramite: new FormControl(null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
     genero: new FormControl('', [Validators.required]),
     fchNacimiento: new FormControl(null, [Validators.required]),
@@ -28,12 +28,16 @@ export class RegistroPage {
     passwordRepetida: new FormControl('', [Validators.required]),
   });
 
+  generos = [
+    { id: 'M', nombre: 'Masculino' },
+    { id: 'F', nombre: 'Femenino' },
+    { id: 'X', nombre: 'X' }
+  ];
   registro() {
     console.log(this.usuarioNuevo);
     console.log(this.usuarioNuevo.valid);
 
     console.log(this.usuarioNuevo.value.genero)
-    // console.log(this.usuarioNuevo.value.genero)
 
     if (this.usuarioNuevo.valid && (this.usuarioNuevo.value.password === this.usuarioNuevo.value.passwordRepetida)){
       console.log(" *** Registrado");
@@ -41,13 +45,13 @@ export class RegistroPage {
       this.usuario = {
         nombre: this.usuarioNuevo.value.nombre!,
         apellido: this.usuarioNuevo.value.apellido!,
-        dni: this.usuarioNuevo.value.dni!,
+        nroDocumento: this.usuarioNuevo.value.nroDocumento!,
         telefono: this.usuarioNuevo.value.telefono!,
         nroTramite: this.usuarioNuevo.value.nroTramite!,
         mail: this.usuarioNuevo.value.mail!,
         password: this.usuarioNuevo.value.password!,
-        genero: this.usuarioNuevo.value.nombre!,
-        fchNacimiento: this.usuarioNuevo.value.fchNacimiento!,
+        genero: this.usuarioNuevo.value.genero!,
+        fchNacimiento: this.usuarioNuevo.value.fchNacimiento!
       }
 
       this.usuarioService.insertUsuario(this.usuario).subscribe({
